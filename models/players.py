@@ -2,11 +2,11 @@ from pygame.key import get_pressed
 from pygame.constants import K_LEFT, K_RIGHT, K_SPACE
 from pygame.sprite import Group, Sprite
 
-from models.entity import Entity
+from models.base import Entity
 from models.bullets import PlaneBullet
 
-WEIGHT = 100
-HEIGHT = 100
+WEIGHT = 640
+HEIGHT = 480
 
 
 class Player(Entity):
@@ -22,35 +22,32 @@ class Player(Entity):
     def move(self) -> None:
         key = get_pressed()
 
-        if key == K_LEFT:
+        if key[K_LEFT]:
             self.rect.x -= self.speed
 
-        elif key == K_RIGHT:
+        if key[K_RIGHT]:
             self.rect.x += self.speed
 
-        elif key == K_SPACE:
+        if key[K_SPACE]:
             self.attack()
+        super(Player, self).move()
 
     def attack(self) -> None:
-        if self.cool_down_counter == 0:
+        if self.cool_down_counter > self.COOLDOWN:
             self.weapons.add(self.weapon(self.rect.x, self.rect.y))
+            self.cool_down_counter = 0
 
     def update(self, *args, **kwargs) -> None:
-        self.cool_down()
+        self.cool_down_counter += 1
         super(Player, self).update()
         self.weapons.update()
 
-    def cool_down(self):
-        if self.cool_down_counter > self.COOLDOWN:
-            self.cool_down_counter = 0
-        else:
-            self.cool_down_counter += 1
-            
     def set_images(self, image_path) -> None:
         super(Player, self).set_images(image_path)
-        self.rect = self.image.get_rect()
         self.pos_y = HEIGHT - self.image.get_height() - 30
         self.pos_x = (WEIGHT - self.image.get_width()) / 2
+        self.rect.x = self.pos_x
+        self.rect.y = self.pos_y
 
     def collision(self, sprites: Group) -> None:
         for enemy_bullet in sprites:

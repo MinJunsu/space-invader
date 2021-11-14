@@ -1,4 +1,4 @@
-from .entity import Entity
+from .base import Entity
 
 
 class Alien(Entity):
