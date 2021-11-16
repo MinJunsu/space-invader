@@ -37,7 +37,6 @@ pygame.display.set_caption(TITLE)
 def main():
     title_font = pygame.font.Font(os.path.join(FONT_PATH, 'edit_undo.ttf'), 60)
     sub_title_font = pygame.font.Font(os.path.join(FONT_PATH, 'neue.ttf'), 30)
-    control_font = pygame.font.Font(os.path.join(FONT_PATH, 'neue.ttf'), 36)
 
     audio_cfg.play_music(MENU_MUSIC_PATH)
     run = True
@@ -104,7 +103,7 @@ def main():
                     audio_cfg.dec_volume(5)
                 if event.key == pygame.K_f:
                     display_cfg.toggle_full_screen()
-                # key up, down가늠
+                # key up, down가능
                 if event.key == pygame.K_DOWN or event.key == pygame.K_RIGHT:
                     if index == len(sub_title)-1:
                         index = 0
