@@ -1,4 +1,5 @@
 import pygame
+import random
 from models.laser import Laser
 from screens.background import slow_bg_obj
 from screens.controls import audio_cfg
@@ -194,23 +195,47 @@ class Player(Ship):
                                                10))
 
 class Enemy(Ship):
-    TYPE_MODE = {
-        'easy': (EASY_SPACE_SHIP, RED_LASER, 10),
-        'medium': (MEDIUM_SPACE_SHIP, BLUE_LASER, 18),
-        'hard': (HARD_SPACE_SHIP, GREEN_LASER, 25),
-        'boss': (BOSS_SHIP, FLAME_LASER, 100)
-    }
+    TYPE_MODE = [[(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],]
 
-    ship_type = ''
+    speed = 0
+    is_vertical_move = False
+    is_horizontal_move = False
+    direction = 0
+    isBoss = False
 
-    def __init__(self, x, y, ship_type, health=100):
+    def __init__(self, x, y, chapter, number, health=100):
         super().__init__(x, y, health)
-        self.ship_type = ship_type
-        self.ship_img, self.laser_img, self.damage = self.TYPE_MODE[self.ship_type]
+        self.ship_img, self.laser_img, self.damage, self.speed, self.is_vertical_move, self.is_horizontal_move = self.TYPE_MODE[chapter-1][number]
         self.mask = pygame.mask.from_surface(self.ship_img)
 
-    def move(self, vel):
-        self.y += vel
+        if number-1 == 4:
+            self.isBoss = True
+
+        if self.is_horizontal_move:
+            self.direction = random.random()
+
+    def move(self):
+        if self.is_vertical_move:
+            self.y += self.speed
+
+        if self.is_horizontal_move:
+            if self.x + self.direction < 0 or self.x + self.direction > 750:
+                self.direction *= -1
+            self.x += self.direction
 
     def move_lasers(self, vel, obj):
         self.coolDown()
