@@ -3,9 +3,10 @@ import pygame
 import argparse
 
 from screens.game import game
-from screens.controls import audio_cfg, display_cfg, controls
+from screens.controls import audio_cfg, display_cfg, settings
 from screens.score_board import score_board
 from screens.background import slow_bg_obj
+# from screens.helps import helps
 
 from constants import MENU_MUSIC_PATH, TITLE,\
     WIDTH,\
@@ -95,7 +96,10 @@ def main():
             run = False
 
         if keys[pygame.K_c]:
-            controls()
+            settings()
+
+        # if keys[pygame.K_h]:
+        #     helps()
 
         if keys[pygame.K_s]:
             score_board()

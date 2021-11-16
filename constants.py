@@ -21,8 +21,9 @@ FONT_PATH = os.path.join('assets', 'fonts')
 
 # Load Controls Image
 startImage = pygame.image.load(os.path.join('assets', 'graphics', 'play.png'))
-controlImage = pygame.image.load(os.path.join('assets', 'graphics', 'joystick.png'))
+controlImage = pygame.image.load(os.path.join('assets', 'graphics', 'setting.png'))
 trophyImage = pygame.image.load(os.path.join('assets', 'graphics', 'trophy.png'))
+helpsImage = pygame.image.load(os.path.join('assets', 'graphics', 'joystick.png'))
 
 # Load Hearts
 heartImage = pygame.image.load(os.path.join('assets', 'graphics', 'heart.png'))
