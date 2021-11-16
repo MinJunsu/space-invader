@@ -31,6 +31,8 @@ class Player(Entity):
         if key[K_SPACE]:
             self.attack()
         super(Player, self).move()
+        for weapon in self.weapons:
+            weapon.move()
 
     def attack(self) -> None:
         if self.cool_down_counter > self.COOLDOWN:
