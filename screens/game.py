@@ -158,7 +158,12 @@ def game(isMouse=False):
                             enemies.append(Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1200, -100), chapter, 4-count))
                             wave_point -= i
 
-
+            for i in range(wave_length if level < 10 else 1):
+                enemies.append(Enemy(
+                    random.randrange(50, WIDTH - 100),
+                    random.randrange(-200, -100),
+                    random.choice(['easy', 'medium', 'hard']) if level < 10 else 'boss')
+                )
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
