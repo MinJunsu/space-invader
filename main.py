@@ -1,4 +1,6 @@
 import os
+import time
+
 import pygame
 import argparse
 
@@ -39,6 +41,7 @@ def main():
 
     audio_cfg.play_music(MENU_MUSIC_PATH)
     run = True
+    index = 0
     while run:
         slow_bg_obj.update()
         slow_bg_obj.render(CANVAS)
@@ -48,34 +51,47 @@ def main():
         screen_rect = CANVAS.get_rect()
         center_x = screen_rect.centerx
         starting_x = center_x - background_width//2
-        ending_x = center_x + background_width//2
 
-        title_label = title_font.render('Start the Game', 1, (0, 209, 0))
-        CANVAS.blit(title_label, (window_width//2 - title_label.get_width()//2 - 15, 350))
-        CANVAS.blit(startImage, (window_width//2 + title_label.get_width()//2, 353))
-        sub_title_label = sub_title_font.render('Press ENTER to play with KEYBOARD', 1, (249, 166, 2))
-        CANVAS.blit(sub_title_label, (window_width//2 - sub_title_label.get_width()//2, 410))
-        sub_title_label = sub_title_font.render('Click LEFT MOUSE button to play with MOUSE', 1, (249, 166, 2))
-        CANVAS.blit(sub_title_label, (window_width//2 - sub_title_label.get_width()//2, 450))
 
+        # 메인 view 구성
         # Ships
-        CANVAS.blit(BOSS_SHIP, (starting_x + 285, 75))
+        CANVAS.blit(BOSS_SHIP, (starting_x + 255, 75))
         CANVAS.blit(PLAYER_SPACE_SHIP, (window_width//2 - 50, 575))
-        CANVAS.blit(PLAYER_LASER, (window_width//2 - 50, 475))
 
-        # Control Page
-        control_label = control_font.render('[c]', 1, (255, 255, 255))
-        CANVAS.blit(control_label, (starting_x + 95, 32))
-        CANVAS.blit(controlImage, (starting_x + 30, 15))
+        # text
+        title_label = title_font.render('debugingjing the Game', 1, (0, 209, 0)) # 띄울 내용 (text, antialias, color, bg)
+        CANVAS.blit(title_label, (window_width//2 - title_label.get_width()//2 - 15, 350)) # 띄울 위치(text, x좌표,y좌표)
+        CHOICE_COLOR = (249, 166, 2)
+        UNCHOICE_COLOR = (255, 255, 255)
+        sub_title = [
+            {
+                'text': 'PLAY [ENTER]'
+            },
+            {
+                'text': 'SCORES [S]'
+            },
+            {
+                'text': 'SUMMARY [L]'
+            },
+            {
+                'text': 'SETTING [C]'
+            }
+        ]
 
-        # ScoreBoard Page
-        score_label = control_font.render('[s]', 1, (255, 255, 255))
-        CANVAS.blit(score_label, (ending_x - 67, 30))
-        CANVAS.blit(trophyImage, (ending_x - 130, 25))
+        CANVAS.blit(startImage, (window_width//2 + title_label.get_width()//2, 353))
+        for idx, element in enumerate(sub_title):
+            if idx == index:
+                label = sub_title_font.render(element['text'], 1, CHOICE_COLOR)
+            else:
+                label = sub_title_font.render(element['text'], 1, UNCHOICE_COLOR)
+            position = (window_width//2 - label.get_width()//2, 410 + idx*40)
+            CANVAS.blit(label, position)
 
         audio_cfg.display_volume(CANVAS)
         pygame.display.update()
         framespersec.tick(FPS) # capping frame rate to 60
+        
+        # 한 번씩만 체크된
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -88,9 +104,24 @@ def main():
                     audio_cfg.dec_volume(5)
                 if event.key == pygame.K_f:
                     display_cfg.toggle_full_screen()
+                # key up, down가늠
+                if event.key == pygame.K_DOWN or event.key == pygame.K_RIGHT:
+                    if index == len(sub_title)-1:
+                        index = 0
+                    else:
+                        index += 1
+                    print(index)
+                if event.key == pygame.K_UP or event.key == pygame.K_LEFT:
+                    if index == 0:
+                        index = len(sub_title)-1
+                    else:
+                        index -= 1
+                    print(index)
 
-        keys = pygame.key.get_pressed()
-        button = pygame.mouse.get_pressed()    
+        keys = pygame.key.get_pressed() 
+        button = pygame.mouse.get_pressed()
+
+        # 계속 체크됨
         if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
             run = False
 
