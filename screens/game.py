@@ -138,7 +138,7 @@ def game(isMouse=False):
             for i in range(wave_length if level < 10 else 1):
                 enemies.append(Enemy(
                     random.randrange(50, WIDTH - 100),
-                    random.randrange(-1200, -100),
+                    random.randrange(-200, -100),
                     random.choice(['easy', 'medium', 'hard']) if level < 10 else 'boss')
                 )
 
