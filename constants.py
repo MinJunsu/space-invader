@@ -5,7 +5,7 @@ TITLE = 'SPACE INVADERS'
 WIDTH = 750
 HEIGHT = 750
 
-FPS = 60
+FPS = 1000
 framespersec = pygame.time.Clock()
 
 score_list = []
@@ -62,4 +62,4 @@ backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'backgrou
 BG = pygame.transform.scale(backgroundImage, (WIDTH, HEIGHT))
 
 # Canvas Dimensions
-CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
+CANVAS = pygame.display.set_mode((WIDTH, HEIGHT)) # div같은걸 만들어 줌

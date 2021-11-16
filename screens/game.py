@@ -49,20 +49,14 @@ def game(isMouse=False):
     pygame.mouse.set_visible(False)
 
     # 종료화면
-    lost1 = False
-    lost2 = False
-    lost3 = False
+    lost = [False, False, False, ]
     win = False
 
     # story설명
-    story1 = True
-    story2 = True
-    story3 = True
+    story = [True, True, True, True]
 
     # boss등장
-    boss1 = True
-    boss2 = True
-    boss3 = True
+    boss = [True, True, True, True]
 
     pause = False #일시정지
     setting = False #설정창
@@ -101,19 +95,9 @@ def game(isMouse=False):
         CANVAS.blit(setting_btn, (ending_x - setting_btn.get_width() - 10, 10))
 
         # 종료화면
-        if lost1:
+        if level < 15 and lost[int(level/5)]:
             score_list.append(player.get_score()) #점수체크
-            lost_label = lost_font.render('GAME OVER 1', 1, (255, 0, 0))
-            CANVAS.blit(lost_label, (window_width//2 -
-                        lost_label.get_width()//2, 350))
-        if lost2:
-            score_list.append(player.get_score())
-            lost_label = lost_font.render('GAME OVER 2', 1, (255, 0, 0))
-            CANVAS.blit(lost_label, (window_width//2 -
-                        lost_label.get_width()//2, 350))
-        if lost3:
-            score_list.append(player.get_score())
-            lost_label = lost_font.render('GAME OVER 3', 1, (255, 0, 0))
+            lost_label = lost_font.render(f'GAME OVER {int(level/5)+1}', 1, (255, 0, 0))
             CANVAS.blit(lost_label, (window_width//2 -
                         lost_label.get_width()//2, 350))
         if win:
@@ -123,35 +107,35 @@ def game(isMouse=False):
                         win_label.get_width()//2, 350))
 
         # 스토리 설명 + 보스몹 출현
-        if level == 1 and story1: # story1
-            story1_label = win_font.render('story 1', 1, (0, 209, 0))
+        if level < 15  and level % 5 == 1 and story[int(level / 5)]: # story1
+            story1_label = win_font.render(f'story {int(level / 5)+1}', 1, (0, 209, 0))
             CANVAS.blit(story1_label, (window_width//2 -
                         story1_label.get_width()//2, 350))
 
-        elif level == 5 and boss1: # boss1
-            last_label1 = lost_font.render('BOSS 1', 1, (255, 0, 0))
-            CANVAS.blit(last_label1, (window_width//2 -
-                        last_label1.get_width()//2, 350))
+        elif level % 5 == 0 and boss[int(level / 5)]: # boss1
+            last_label = lost_font.render(f'BOSS {int(level / 5)}', 1, (255, 0, 0))
+            CANVAS.blit(last_label, (window_width//2 -
+                        last_label.get_width()//2, 350))
 
-        elif level == 6 and story2: # story2
-            story2_label = win_font.render('story 2', 1, (0, 209, 0))
-            CANVAS.blit(story2_label, (window_width//2 -
-                        story2_label.get_width()//2, 350))
+        # elif level == 6 and story2: # story2
+        #     story2_label = win_font.render('story 2', 1, (0, 209, 0))
+        #     CANVAS.blit(story2_label, (window_width//2 -
+        #                 story2_label.get_width()//2, 350))
 
-        elif level == 10 and boss2: # boss2
-            last_label2 = lost_font.render('BOSS 2', 1, (255, 0, 0))
-            CANVAS.blit(last_label2, (window_width//2 -
-                        last_label2.get_width()//2, 350))
+        # elif level == 10 and boss2: # boss2
+        #     last_label2 = lost_font.render('BOSS 2', 1, (255, 0, 0))
+        #     CANVAS.blit(last_label2, (window_width//2 -
+        #                 last_label2.get_width()//2, 350))
 
-        elif level == 11 and story3: # story3
-            story3_label = win_font.render('story 3', 1, (0, 209, 0))
-            CANVAS.blit(story3_label, (window_width//2 -
-                        story3_label.get_width()//2, 350))
+        # elif level == 11 and story3: # story3
+        #     story3_label = win_font.render('story 3', 1, (0, 209, 0))
+        #     CANVAS.blit(story3_label, (window_width//2 -
+        #                 story3_label.get_width()//2, 350))
 
-        elif level == 15 and boss3: # boss3
-            last_label3 = lost_font.render('BOSS 3', 1, (255, 0, 0))
-            CANVAS.blit(last_label3, (window_width//2 -
-                        last_label3.get_width()//2, 350))
+        # elif level == 15 and boss3: # boss3
+        #     last_label3 = lost_font.render('BOSS 3', 1, (255, 0, 0))
+        #     CANVAS.blit(last_label3, (window_width//2 -
+        #                 last_label3.get_width()//2, 350))
 
         # 일시중지 스크린
         if pause:
@@ -183,47 +167,47 @@ def game(isMouse=False):
         # game over
         else:
             if level <= 5:
-                lost1 = True
+                lost[0] = True
             elif level <= 10:
-                lost2 = True
+                lost[1] = True
             elif level <= 15:
-                lost3 = True
+                lost[2] = True
             redraw_window()
             time.sleep(3)
             player.run = False
             pygame.mouse.set_visible(True)
 
 
-        if level == 1 and story1: # story1
+        if level < 15 and level % 5 == 1 and story[int(level / 5)]: # story
             # redraw_window()
-            story1 = False
+            story[int(level / 5)] = False
             time.sleep(1)
             redraw_window()
 
-        elif level == 5 and boss1: # boss1
+        elif level > 1 and level % 5 == 0 and boss[int(level / 5)]: # boss
             time.sleep(0.5)
-            boss1 = False
+            boss[int(level / 5)] = False
             redraw_window()
-
-        elif level == 6 and story2: # story2
-            time.sleep(0.5)
-            story2 = False
-            redraw_window()
-
-        elif level == 10 and boss2: # boss2
-            time.sleep(0.5)
-            boss2 = False
-            redraw_window()
-
-        elif level == 11 and story3: # story3
-            time.sleep(0.5)
-            story3 = False
-            redraw_window()
-
-        elif level == 15 and boss3: # boss3
-            time.sleep(0.5)
-            boss3 = False
-            redraw_window()
+        #
+        # elif level == 6 and story2: # story2
+        #     time.sleep(0.5)
+        #     story2 = False
+        #     redraw_window()
+        #
+        # elif level == 10 and boss2: # boss2
+        #     time.sleep(0.5)
+        #     boss2 = False
+        #     redraw_window()
+        #
+        # elif level == 11 and story3: # story3
+        #     time.sleep(0.5)
+        #     story3 = False
+        #     redraw_window()
+        #
+        # elif level == 15 and boss3: # boss3
+        #     time.sleep(0.5)
+        #     boss3 = False
+        #     redraw_window()
 
         if level > 15:
             win = True

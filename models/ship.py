@@ -18,6 +18,7 @@ from constants import HEIGHT, \
     ENEMY_LASER_SOUND, \
     MENU_MUSIC_PATH
 
+# 몹들
 
 class Ship:
     CoolDown = 25
@@ -79,6 +80,7 @@ class Ship:
     def get_score(self):
         return self.SCORE
 
+#  유저 ship
 class Player(Ship):
     def __init__(self, x, y, health=100, mouse_movement = False):
         super().__init__(x, y, health)
@@ -185,12 +187,13 @@ class Player(Ship):
                                                int(self.ship_img.get_width() * (self.health/self.max_health)),
                                                10))
 
+# 몹들 (일반, 보스)
 class Enemy(Ship):
     TYPE_MODE = {
         'easy': (EASY_SPACE_SHIP, RED_LASER, 10),
         'medium': (MEDIUM_SPACE_SHIP, BLUE_LASER, 18),
         'hard': (HARD_SPACE_SHIP, GREEN_LASER, 25),
-        'boss': (BOSS_SHIP, FLAME_LASER, 100)
+        'boss': (BOSS_SHIP, FLAME_LASER, 10)
     }
 
     ship_type = ''
