@@ -57,7 +57,7 @@ soundList.append(PLAYER_LASER_SOUND)
 soundList.append(ENEMY_LASER_SOUND)
 
 # Load Background Image
-backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'background-black.png'))
+backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'background-earth.png'))
 
 # Set Background Dimensions
 BG = pygame.transform.scale(backgroundImage, (WIDTH, HEIGHT))
