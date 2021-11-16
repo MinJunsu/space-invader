@@ -18,11 +18,12 @@ from constants import GAME_MUSIC_PATH, \
     FPS, \
     FONT_PATH
 
-
 def game(isMouse=False):
     lives = 5
     level = 0
+    chapter = 0
     laser_vel = 10
+    appearance = [3, 3, 7, 15, 0]
 
     main_font = pygame.font.Font(os.path.join(FONT_PATH, "edit_undo.ttf"), 50)
     sub_font = pygame.font.Font(os.path.join(FONT_PATH, "neue.ttf"), 40)
@@ -34,15 +35,14 @@ def game(isMouse=False):
     audio_cfg.play_music(GAME_MUSIC_PATH)
 
     enemies = []
-    wave_length = 0
-    enemy_vel = 1
+    wave_point = 0
 
     player = Player(300, 585, mouse_movement=isMouse)
     pygame.mouse.set_visible(False)
 
     lost = False
     win = False
-    boss_entry = True
+    boss_entry = [True, True, True]
     pause = False
 
     def redraw_window(pause=False):
@@ -58,7 +58,7 @@ def game(isMouse=False):
         ending_x = center_x + background_width//2
 
         # Draw Text
-        level_label = sub_small_font.render(f'{level} / 10', 1, (0, 255, 255))
+        level_label = sub_small_font.render(f'{level} / 15', 1, (0, 255, 255))
         score_label = sub_font.render(f'{player.get_score()}', 1, (0, 255, 0))
 
         player.draw(CANVAS)
@@ -89,7 +89,7 @@ def game(isMouse=False):
             CANVAS.blit(lost_label, (window_width//2 -
                         lost_label.get_width()//2, 350))
 
-        if level >= 10 and boss_entry:
+        if level % 5 == 0 and boss_entry[int(int(level/5))-1]:
             last_label = lost_font.render('BOSS LEVEL!!', 1, (255, 0, 0))
             CANVAS.blit(last_label, (window_width//2 -
                         last_label.get_width()//2, 350))
@@ -121,11 +121,12 @@ def game(isMouse=False):
             player.run = False
             pygame.mouse.set_visible(True)
 
-        if level == 10 and boss_entry:
+        if level % 5 == 0 and level != 0 and boss_entry[int(level/5)-1]:
             redraw_window()
             time.sleep(2)
-            boss_entry = False
-        elif level > 10:
+            boss_entry[int(level/5)-1] = False
+
+        elif level > 15:
             win = True
             redraw_window()
             time.sleep(3)
@@ -133,14 +134,31 @@ def game(isMouse=False):
 
         if len(enemies) == 0:
             level += 1
-            wave_length += 4
+            chapter = int((level - 1) / 5 + 1)
+            wave_point = 0
+            count = 0
 
-            for i in range(wave_length if level < 10 else 1):
-                enemies.append(Enemy(
-                    random.randrange(50, WIDTH - 100),
-                    random.randrange(-1200, -100),
-                    random.choice(['easy', 'medium', 'hard']) if level < 10 else 'boss')
-                )
+            if level % 5 == 0 and boss_entry[int(level/5)-1]:
+                enemies.append(Enemy(WIDTH/2, -1200, chapter, 4)) # boss 구현 후 넣어주기
+
+            else:
+                for i in [8, 4, 2, 1]:
+                    if appearance[level % 5 - 1] & i:
+                        wave_point += i
+                        count += 1
+                wave_point /= count
+                wave_point *= 1.2 ** (int(level % 5) - 1)
+                wave_point *= random.randrange(20, 25, 1)
+
+                count = 0
+                for i in [8, 4, 2, 1]:
+                    count += 1
+                    if appearance[level % 5 - 1] & i:
+                        while wave_point >= i:
+                            enemies.append(Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1200, -100), chapter, 4-count))
+                            wave_point -= i
+
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -180,7 +198,7 @@ def game(isMouse=False):
         player.move()
 
         for enemy in enemies[:]:
-            enemy.move(enemy_vel)
+            enemy.move()
             enemy.move_lasers(laser_vel, player)
 
             if random.randrange(0, 2 * FPS) == 1:
@@ -188,7 +206,7 @@ def game(isMouse=False):
 
             if collide(enemy, player):
                 player.SCORE += 50
-                if enemy.ship_type == 'boss':
+                if enemy.isBoss:
                     if enemy.boss_max_health - 5 <= 0:
                         enemies.remove(enemy)
                         enemy.boss_max_health = 100
