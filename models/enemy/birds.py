@@ -93,10 +93,3 @@ class CrazyBird(Bird):
         if 0 > self.rect.x or 640 - self.image.get_width() < self.rect.x:
             self.speed *= -1
         self.rect.x += self.speed
-
-        for child in self.children:
-            child.move()
-
-        if self.coll_down_count > self.COOLDOWN:
-            self.create_birds()
-            self.coll_down_count = 0
