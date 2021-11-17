@@ -1,12 +1,11 @@
 from pygame.key import get_pressed
 from pygame.constants import K_LEFT, K_RIGHT, K_SPACE
-from pygame.sprite import Group, Sprite
+from pygame.sprite import Group
 
-from models.base import Entity
-from models.bullets import PlaneBullet
+from models import Entity, Bullet, HEIGHT, WIDTH
 
-WEIGHT = 640
-HEIGHT = 480
+HEIGHT = HEIGHT
+WIDTH = WIDTH
 
 
 class Player(Entity):
@@ -47,33 +46,16 @@ class Player(Entity):
     def set_images(self, image_path) -> None:
         super(Player, self).set_images(image_path)
         self.pos_y = HEIGHT - self.image.get_height() - 30
-        self.pos_x = (WEIGHT - self.image.get_width()) / 2
+        self.pos_x = (WIDTH - self.image.get_width()) / 2
         self.rect.x = self.pos_x
         self.rect.y = self.pos_y
 
-    def collision(self, sprites: Group) -> None:
-        for enemy_bullet in sprites:
-            if self.is_collision(enemy_bullet):
-                enemy_bullet.kill()
-                self.health_point -= 1
 
+class PlayerBullet(Bullet):
+    def __init__(self, pos_x, pos_y):
+        super(PlayerBullet, self).__init__(pos_x, pos_y)
+        self.pos_x = pos_x
+        self.pos_y = pos_y
 
-class PlanePlayer(Player):
-    COOLDOWN = 20
-
-    def __init__(self, health_point):
-        super(PlanePlayer, self).__init__(health_point)
-        self.speed = 10
-        self.weapon = PlaneBullet
-        self.is_horizontal_move = True
-        self.set_images('plane')
-
-
-class SpaceShipPlayer(Player):
-    COOLDOWN = 15
-
-    def __init__(self, health_point):
-        super(SpaceShipPlayer, self).__init__(health_point)
-        self.weapon = None
-        self.speed = 15
-        self.set_images('spaceship')
+    def move(self) -> None:
+        self.rect.y -= self.speed

@@ -3,7 +3,7 @@ from pygame.sprite import Group
 
 from .base import Enemy
 from .explosions import BirdExplosion
-from .bullets import BlueSpaceShipBullet, RedSpaceShipBullet, GreenSpaceShipBullet
+from .bullets import BlueSpaceShipBullet, RedSpaceShipBullet, GreenSpaceShipBullet, CircledSpaceShipBullet
 
 
 class SpaceShip(Enemy):
@@ -61,3 +61,25 @@ class GreenSpaceShip(SpaceShip):
         self.speed = 8
         self.set_images('green_ship')
         self.weapon = GreenSpaceShipBullet
+
+
+class CircledSpaceShip(SpaceShip):
+    DEFAULT_COUNT = 1
+    COOLDOWN = 10
+
+    def __init__(self, pos_x, pos_y):
+        super(CircledSpaceShip, self).__init__(pos_x, pos_y)
+        self.health_point = 20
+        self.speed = 8
+        self.set_images('circled_ship')
+        self.weapon = CircledSpaceShipBullet
+
+    def attack(self) -> None:
+        if self.cool_down_counter > self.COOLDOWN:
+            self.weapons.add(self.weapon(self.rect.x, self.rect.y))
+            self.cool_down_counter = 0
+
+    def move(self) -> None:
+        if 0 > self.rect.x or 640 - self.image.get_width() < self.rect.x:
+            self.speed *= -1
+        self.rect.x += self.speed

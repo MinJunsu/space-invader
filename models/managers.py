@@ -1,12 +1,13 @@
 from pygame.sprite import Group, GroupSingle
 
-from .players import PlanePlayer, SpaceShipPlayer
-from .birds import SmileBird, PoisonedBird, CircledBird, OldBird, CrazyBird
-from .space_ship import BlueSpaceShip, RedSpaceShip, GreenSpaceShip
+from models.player.players import PlanePlayer, SpaceShipPlayer
+from models.enemy import (
+    SmileBird, PoisonedBird, CircledBird, OldBird, CrazyBird,
+    BlueSpaceShip, RedSpaceShip, GreenSpaceShip, CircledSpaceShip
+)
 
 
-class PlayerGroup:
-
+class PlayerManager:
     def __init__(self):
         self.level = 0
         self.character = GroupSingle()
@@ -22,11 +23,17 @@ class PlayerGroup:
             self.character.empty()
             self.character.add(SpaceShipPlayer(self.health_point))
 
-        # FIXME: Replace other Player
-        elif self.level == 2:
-            self.character.empty()
-            self.character.add(PlanePlayer(self.health_point))
-            self.level += 1
+        # # FIXME: Replace other Player
+        # elif self.level == 2:
+        #     self.character.empty()
+        #     self.character.add(PlanePlayer(self.health_point))
+        self.level += 1
+
+    def collide(self, enemies) -> None:
+        for enemy in enemies:
+            if enemy.weapon:
+                if self.character.sprite.collide(enemy.weapons):
+                    self.health_point -= 1
 
     def move(self):
         self.character.sprite.move()
@@ -39,10 +46,11 @@ class PlayerGroup:
         self.character.update()
 
 
-class EnemyGroup:
+class EnemyManager:
     ENEMIES = [
         SmileBird, PoisonedBird, CircledBird, OldBird, CrazyBird,
         BlueSpaceShip, RedSpaceShip, GreenSpaceShip,
+        CircledSpaceShip
     ]
 
     def __init__(self):
@@ -60,7 +68,7 @@ class EnemyGroup:
         self.level += 1
 
     # 플레이어의 총알과 충돌할 경우
-    def collide(self, player: PlayerGroup) -> None:
+    def collide(self, player) -> None:
         for enemy in self.enemy:
             explosion = enemy.collide(player.sprite.weapons)
             if explosion:

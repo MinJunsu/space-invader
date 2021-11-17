@@ -1,4 +1,4 @@
-from .base import Entity
+from models.enemy.base import Entity
 
 
 class Alien(Entity):
