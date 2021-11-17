@@ -5,7 +5,7 @@ TITLE = 'SPACE INVADERS'
 WIDTH = 750
 HEIGHT = 750
 
-FPS = 60
+FPS = 2000
 framespersec = pygame.time.Clock()
 
 score_list = []
@@ -62,4 +62,16 @@ backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'backgrou
 BG = pygame.transform.scale(backgroundImage, (WIDTH, HEIGHT))
 
 # Canvas Dimensions
-CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
+CANVAS = pygame.display.set_mode((WIDTH, HEIGHT)) # div같은걸 만들어 줌
+
+
+# stage
+stage_1 = pygame.image.load(os.path.join('assets', 'graphics', 'stage1.png'))
+stage_2 = pygame.image.load(os.path.join('assets', 'graphics', 'stage2.png'))
+stage_3 = pygame.image.load(os.path.join('assets', 'graphics', 'stage3.png'))
+
+#gameover
+game_over_1 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover1.png'))
+game_over_2 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover2.png'))
+game_over_3 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover3.png'))
+game_over_4 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover4.png'))

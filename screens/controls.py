@@ -46,7 +46,7 @@ class AudioControls:
         amt = min(100, self.volume + amt)
         self.set_volume(amt)
 
-    def toggle_mute(self):
+    def toggle_mute(self): # 볼룸 껏다 킴
         if self.muted:
             self.set_volume(self.prev_volume)
             self.muted = False
@@ -178,9 +178,9 @@ def controls():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_m:
-                    audio_cfg.toggle_mute()
+            if event.type == pygame.KEYUP: 
+                if event.key == pygame.K_m: 
+                    audio_cfg.toggle_mute() # m => 소리
                 if event.key == pygame.K_PLUS or event.key == pygame.K_EQUALS:
                     audio_cfg.inc_volume(5)
                 if event.key == pygame.K_MINUS:
