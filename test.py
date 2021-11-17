@@ -4,8 +4,11 @@ Use it for test cases on PyGame-related code.
 """
 import sys
 import pygame
+import os
+from pathlib import Path
 from pygame.locals import *
-from models.base import EnemyGroup
+from models.entity import EnemyGroup, PlayerGroup
+from pygame.mixer import Sound
 from models.players import PlanePlayer
 from models.birds import OldBird, CrazyBird
 from pygame.sprite import GroupSingle, Group
@@ -37,13 +40,12 @@ if pygame_modules_have_loaded():
     game_screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption('Test')
     clock = pygame.time.Clock()
-    plane = PlanePlayer(5)
-    group = GroupSingle()
-    enemy_group = EnemyGroup()
-    explosion_group = Group()
-    birds = CrazyBird(100, 100)
-    group.add(plane)
-    enemy_group.add(birds)
+    BASE_DIR = Path(__file__).resolve().parent
+    SOUND_ROOT = os.path.join(BASE_DIR, 'assets', 'sounds')
+    sound = Sound(os.path.join(SOUND_ROOT, 'background.mp3'))
+    sound.play(loops=-1)
+    player = PlayerGroup()
+    enemy = EnemyGroup()
 
     def declare_globals():
         # The class(es) that will be tested should be declared and initialized
@@ -67,9 +69,8 @@ if pygame_modules_have_loaded():
         # screen provides the PyGame Surface for the game window.
         # time provides the seconds elapsed since the last update.
         pygame.display.update()
-        group.update()
-        enemy_group.update()
-        explosion_group.update()
+        player.update()
+        enemy.update()
 
     # Add additional methods here.
 
@@ -87,9 +88,13 @@ if pygame_modules_have_loaded():
                     key_name = pygame.key.name(event.key)
                     handle_input(key_name)
 
-                plane.move()
-                for enemy in enemy_group:
-                    enemy.move()
+                player.move()
+                enemy.move()
+
+            if enemy.is_empty():
+                enemy.upgrade()
+
+            enemy.collide(player.character)
 
             milliseconds = clock.tick(FRAME_RATE)
             seconds = milliseconds / 1000.0
@@ -97,12 +102,8 @@ if pygame_modules_have_loaded():
 
             game_screen.fill((0, 0, 0))
 
-            enemy_group.draw(game_screen)
-            enemy_group.collide(group)
-
-            explosion_group.draw(game_screen)
-            group.draw(game_screen)
-            plane.weapons.draw(game_screen)
+            player.draw(game_screen)
+            enemy.draw(game_screen)
 
             sleep_time = (1000.0 / FRAME_RATE) - milliseconds
             if sleep_time > 0.0:

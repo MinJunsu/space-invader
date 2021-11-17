@@ -83,7 +83,7 @@ audio_cfg = AudioControls(soundList)
 
 
 class DisplayControls:
-    def toggle_full_screen():
+    def toggle_full_screen(self):
         screen = pygame.display.get_surface()
         if (screen.get_flags() & pygame.FULLSCREEN):
             pygame.display.set_mode((750, 750))

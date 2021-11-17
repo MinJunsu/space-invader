@@ -37,7 +37,7 @@ MEDIUM_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'medium
 HARD_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'hard.png'))
 
 # Load Player
-PLAYER_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'retro-spaceship.png'))
+PLAYER_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'retro-spaceships.png'))
 PLAYER_LASER = pygame.image.load(os.path.join('assets', 'graphics', 'pixel_laser_cosmic.png'))
 
 # Load Lasers
