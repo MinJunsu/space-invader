@@ -6,8 +6,8 @@ from pygame.sprite import Sprite, Group, spritecollide
 from pygame.mixer import Sound
 
 
-HEIGHT = 640
-WIDTH = 480
+WIDTH = 640
+HEIGHT = 480
 
 
 class Entity(Sprite):
@@ -77,6 +77,23 @@ class Entity(Sprite):
 
     def collide(self, sprites: Group) -> None:
         return spritecollide(self, sprites, True)
+
+
+class BackGround(Entity):
+    def __init__(self):
+        super(BackGround, self).__init__('background')
+
+    def set_sound(self, name):
+        super(Bullet, self).set_sound(name)
+        self.sound.play()
+
+    def set_images(self, image_path) -> None:
+        os.chdir(os.path.join(Entity.IMAGE_ROOT, os.path.join(self.name, f'{image_path}')))
+        self.images = [image.load(element) for element in sorted(os.listdir())]
+        self.image = self.images[self.image_index]
+        self.rect = self.image.get_rect()
+        if self.pos_x or self.pos_y:
+            self.rect.x, self.rect.y = self.pos_x, self.pos_y
 
 
 class Bullet(Entity):
