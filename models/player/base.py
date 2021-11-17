@@ -11,12 +11,13 @@ WIDTH = WIDTH
 class Player(Entity):
     COOLDOWN = 20
 
-    def __init__(self, health_point):
+    def __init__(self, health_point, score):
         super(Player, self).__init__('users')
         self.weapon = None
         self.weapons = Group()
         self.cool_down_counter = 0
         self.health_point = health_point
+        self.score = score
 
     def move(self) -> None:
         key = get_pressed()

@@ -25,10 +25,7 @@ class SmileBird(Bird):
         super(SmileBird, self).__init__(pos_x, pos_y)
         self.speed = 4
         self.set_images('smile_bird')
-
-    def move(self) -> None:
-        # 이동 추가
-        super(SmileBird, self).move()
+        self.score = 10
 
 
 class PoisonedBird(Bird):
@@ -38,10 +35,7 @@ class PoisonedBird(Bird):
         super(PoisonedBird, self).__init__(pos_x, pos_y)
         self.speed = 6
         self.set_images('poisoned_bird')
-        
-    def move(self) -> None:
-        # 이동 추가
-        super(PoisonedBird, self).move()
+        self.score = 30
 
 
 class CircledBird(Bird):
@@ -51,9 +45,7 @@ class CircledBird(Bird):
         super(CircledBird, self).__init__(pos_x, pos_y)
         self.speed = 6
         self.set_images('circled_bird')
-
-    def move(self) -> None:
-        super(CircledBird, self).move()
+        self.score = 50
 
 
 class OldBird(Bird):
@@ -63,6 +55,7 @@ class OldBird(Bird):
         super(OldBird, self).__init__(pos_x, pos_y)
         self.speed = 2
         self.set_images('old_bird')
+        self.score = 60
 
 
 class CrazyBird(Bird):
@@ -78,6 +71,7 @@ class CrazyBird(Bird):
         self.children = Group()
         self.is_boss = True
         self.coll_down_count = 0
+        self.score = 500
 
     def create_birds(self) -> None:
         base_pos_x = randint(0, 640)
