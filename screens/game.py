@@ -95,7 +95,7 @@ def game(isMouse=False):
                         last_label.get_width()//2, 350))
 
         if pause:
-            # if paused display the "game is paused" screen
+            # if paused display the "games is paused" screen
             pause_label = main_font.render('Game Paused', 1, (0, 255, 255))
             CANVAS.blit(pause_label, (window_width//2 -
                         pause_label.get_width()//2, 350))
