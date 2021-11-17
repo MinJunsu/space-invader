@@ -39,6 +39,7 @@ class BlueSpaceShip(SpaceShip):
         self.speed = 5
         self.set_images('blue_ship')
         self.weapon = BlueSpaceShipBullet
+        self.score = 150
 
 
 class RedSpaceShip(SpaceShip):
@@ -50,6 +51,7 @@ class RedSpaceShip(SpaceShip):
         self.speed = 7
         self.set_images('red_ship')
         self.weapon = RedSpaceShipBullet
+        self.score = 200
 
 
 class GreenSpaceShip(SpaceShip):
@@ -61,6 +63,7 @@ class GreenSpaceShip(SpaceShip):
         self.speed = 8
         self.set_images('green_ship')
         self.weapon = GreenSpaceShipBullet
+        self.score = 300
 
 
 class CircledSpaceShip(SpaceShip):
@@ -73,6 +76,7 @@ class CircledSpaceShip(SpaceShip):
         self.speed = 8
         self.set_images('circled_ship')
         self.weapon = CircledSpaceShipBullet
+        self.score = 1000
 
     def attack(self) -> None:
         if self.cool_down_counter > self.COOLDOWN:

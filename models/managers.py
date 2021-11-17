@@ -1,5 +1,8 @@
+import os
+
 from pygame.sprite import Group, GroupSingle
 
+from models import BackGround
 from models.player.players import PlanePlayer, SpaceShipPlayer
 from models.enemy import (
     SmileBird, PoisonedBird, CircledBird, OldBird, CrazyBird,
@@ -12,16 +15,16 @@ class PlayerManager:
         self.level = 0
         self.character = GroupSingle()
         self.health_point = 5
-        self.upgrade()
+        self.score = 0
 
     def upgrade(self):
         if self.level == 0:
             self.character.empty()
-            self.character.add(PlanePlayer(self.health_point))
+            self.character.add(PlanePlayer(self.health_point, self.score))
 
         elif self.level == 1:
             self.character.empty()
-            self.character.add(SpaceShipPlayer(self.health_point))
+            self.character.add(SpaceShipPlayer(self.health_point, self.score))
 
         # # FIXME: Replace other Player
         # elif self.level == 2:
@@ -36,6 +39,7 @@ class PlayerManager:
                     self.health_point -= 1
 
     def move(self):
+        print(self.score)
         self.character.sprite.move()
 
     def draw(self, surface):
@@ -44,6 +48,7 @@ class PlayerManager:
 
     def update(self):
         self.character.update()
+        self.score = self.character.sprite.score
 
 
 class EnemyManager:
@@ -57,7 +62,6 @@ class EnemyManager:
         self.level = 0
         self.enemy = Group()
         self.collision = Group()
-        self.upgrade()
 
     def move(self):
         for element in self.enemy:
@@ -72,6 +76,7 @@ class EnemyManager:
         for enemy in self.enemy:
             explosion = enemy.collide(player.sprite.weapons)
             if explosion:
+                player.sprite.score += enemy.score
                 self.collision.add(explosion)
 
     def update(self):
@@ -87,3 +92,34 @@ class EnemyManager:
 
     def is_empty(self):
         return len(self.enemy.sprites()) == 0
+
+
+class BackGroundManager:
+    def __init__(self):
+        self.background = GroupSingle()
+        self.level = 0
+
+    def upgrade(self):
+        background = BackGround()
+        if self.level == 0:
+            self.background.empty()
+            background.set_images('stage1')
+            self.background.add(background)
+
+        elif self.level == 1:
+            self.background.empty()
+            background.set_images('stage2')
+            self.background.add(background)
+
+        # elif self.level == 2:
+        #     self.background.empty()
+        #     background.set_images('stage3')
+        #     self.background.add(background)
+
+        self.level += 1
+
+    def draw(self, surface):
+        self.background.draw(surface)
+
+    def update(self):
+        self.background.update()

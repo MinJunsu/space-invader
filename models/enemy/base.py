@@ -3,10 +3,10 @@ from random import randint
 
 from pygame.sprite import Sprite
 
-from models import Entity, Bullet, HEIGHT, WIDTH
+from models import Entity, Bullet
 
-WIDTH = WIDTH
-HEIGHT = HEIGHT
+WIDTH = 640
+HEIGHT = 480
 
 
 class Enemy(Entity):
@@ -15,6 +15,7 @@ class Enemy(Entity):
     def __init__(self, name):
         super(Enemy, self).__init__(os.path.join('enemy', name))
         self.explosion = None
+        self.score = 10
 
     def move(self) -> None:
         if 0 > self.rect.x or WIDTH - self.image.get_width() < self.rect.x:
