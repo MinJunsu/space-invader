@@ -1,4 +1,5 @@
 import pygame
+import random
 from models.laser import Laser
 from screens.background import slow_bg_obj
 from screens.controls import audio_cfg
@@ -18,10 +19,9 @@ from constants import HEIGHT, \
     ENEMY_LASER_SOUND, \
     MENU_MUSIC_PATH
 
-# 몹들
 
 class Ship:
-    CoolDown = 25
+    CoolDown = 25   #총알속도
     boss_max_health = 99
     SCORE = 0
 
@@ -80,7 +80,6 @@ class Ship:
     def get_score(self):
         return self.SCORE
 
-#  유저 ship
 class Player(Ship):
     def __init__(self, x, y, health=100, mouse_movement = False):
         super().__init__(x, y, health)
@@ -155,10 +154,18 @@ class Player(Ship):
             else:
                 for obj in objs:
                     if laser.collision(obj):
-                        self.SCORE += 50
+                        ## 코드 추가본
+                        if obj.ship_type == 'easy':
+                            self.SCORE += 10
+                        if obj.ship_type == 'medium':
+                            self.SCORE += 20
+                        if obj.ship_type == 'hard':
+                            self.SCORE += 30
+                        ##여기까지
                         if obj.ship_type == 'boss':
                             if self.boss_max_health - 10 <= 0:
                                 objs.remove(obj)
+                                self.SCORE += 100                    #수정부분
                                 self.boss_max_health = 100
                             else:
                                 self.boss_max_health -= 10
@@ -187,25 +194,48 @@ class Player(Ship):
                                                int(self.ship_img.get_width() * (self.health/self.max_health)),
                                                10))
 
-# 몹들 (일반, 보스)
 class Enemy(Ship):
-    TYPE_MODE = {
-        'easy': (EASY_SPACE_SHIP, RED_LASER, 10),
-        'medium': (MEDIUM_SPACE_SHIP, BLUE_LASER, 18),
-        'hard': (HARD_SPACE_SHIP, GREEN_LASER, 25),
-        'boss': (BOSS_SHIP, FLAME_LASER, 10)
-    }
+    TYPE_MODE = [[(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],]
 
-    ship_type = ''
+    speed = 0
+    is_vertical_move = False
+    is_horizontal_move = False
+    direction = 0
+    isBoss = False
 
-    def __init__(self, x, y, ship_type, health=100):
+    def __init__(self, x, y, chapter, number, health=100):
         super().__init__(x, y, health)
-        self.ship_type = ship_type
-        self.ship_img, self.laser_img, self.damage = self.TYPE_MODE[self.ship_type]
+        self.ship_img, self.laser_img, self.damage, self.speed, self.is_vertical_move, self.is_horizontal_move = self.TYPE_MODE[chapter-1][number]
         self.mask = pygame.mask.from_surface(self.ship_img)
 
-    def move(self, vel):
-        self.y += vel
+        if number-1 == 4:
+            self.isBoss = True
+
+        if self.is_horizontal_move:
+            self.direction = random.random()
+
+    def move(self):
+        if self.is_vertical_move:
+            self.y += self.speed
+
+        if self.is_horizontal_move:
+            if self.x + self.direction < 0 or self.x + self.direction > 750:
+                self.direction *= -1
+            self.x += self.direction
 
     def move_lasers(self, vel, obj):
         self.coolDown()

@@ -21,8 +21,9 @@ FONT_PATH = os.path.join('assets', 'fonts')
 
 # Load Controls Image
 startImage = pygame.image.load(os.path.join('assets', 'graphics', 'play.png'))
-controlImage = pygame.image.load(os.path.join('assets', 'graphics', 'joystick.png'))
+controlImage = pygame.image.load(os.path.join('assets', 'graphics', 'setting.png'))
 trophyImage = pygame.image.load(os.path.join('assets', 'graphics', 'trophy.png'))
+helpsImage = pygame.image.load(os.path.join('assets', 'graphics', 'joystick.png'))
 
 # Load Hearts
 heartImage = pygame.image.load(os.path.join('assets', 'graphics', 'heart.png'))
@@ -36,7 +37,7 @@ MEDIUM_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'medium
 HARD_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'hard.png'))
 
 # Load Player
-PLAYER_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'retro-spaceship.png'))
+PLAYER_SPACE_SHIP = pygame.image.load(os.path.join('assets', 'graphics', 'retro-spaceships.png'))
 PLAYER_LASER = pygame.image.load(os.path.join('assets', 'graphics', 'pixel_laser_cosmic.png'))
 
 # Load Lasers
@@ -56,7 +57,7 @@ soundList.append(PLAYER_LASER_SOUND)
 soundList.append(ENEMY_LASER_SOUND)
 
 # Load Background Image
-backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'background-black.png'))
+backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'background-earth.png'))
 
 # Set Background Dimensions
 BG = pygame.transform.scale(backgroundImage, (WIDTH, HEIGHT))
