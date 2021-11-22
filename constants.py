@@ -62,4 +62,32 @@ backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'backgrou
 BG = pygame.transform.scale(backgroundImage, (WIDTH, HEIGHT))
 
 # Canvas Dimensions
-CANVAS = pygame.display.set_mode((WIDTH, HEIGHT))
+CANVAS = pygame.display.set_mode((WIDTH, HEIGHT)) # div같은걸 만들어 줌
+
+# monster
+TYPE_MODE = [[(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)]]
+
+# stage
+stage_1 = pygame.image.load(os.path.join('assets', 'graphics', 'stage1.png'))
+stage_2 = pygame.image.load(os.path.join('assets', 'graphics', 'stage2.png'))
+stage_3 = pygame.image.load(os.path.join('assets', 'graphics', 'stage3.png'))
+
+#gameover
+game_over_1 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover1.png'))
+game_over_2 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover2.png'))
+game_over_3 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover3.png'))
+game_over_4 = pygame.image.load(os.path.join('assets', 'graphics', 'gameover4.png'))
