@@ -56,10 +56,17 @@ soundList.append(PLAYER_LASER_SOUND)
 soundList.append(ENEMY_LASER_SOUND)
 
 # Load Background Image
-backgroundImage = pygame.image.load(os.path.join('assets', 'graphics', 'background-earth.png'))
+backgroundImage_1 = pygame.image.load(os.path.join('assets', 'graphics', 'background-earth.png'))
+backgroundImage_2 = pygame.image.load(os.path.join('assets', 'graphics', 'background-black.png'))
+backgroundImage_3 = pygame.image.load(os.path.join('assets', 'graphics', 'background-extra.png'))
 
 # Set Background Dimensions
-BG = pygame.transform.scale(backgroundImage, (WIDTH, HEIGHT))
+backgroundImage_1 = pygame.transform.scale(backgroundImage_1, (WIDTH, HEIGHT))
+backgroundImage_2 = pygame.transform.scale(backgroundImage_2, (WIDTH, HEIGHT))
+backgroundImage_3 = pygame.transform.scale(backgroundImage_3, (WIDTH, HEIGHT))
+
+BG = backgroundImage_1
+
 
 # Canvas Dimensions
 CANVAS = pygame.display.set_mode((WIDTH, HEIGHT)) # div같은걸 만들어 줌

@@ -6,7 +6,7 @@ import random
 from models.ship import Player, Enemy
 from utils.collide import collide
 from .controls import audio_cfg, display_cfg, controls
-from .background import bg_obj
+from .background import bg_obj, slow_bg_obj
 
 from constants import GAME_MUSIC_PATH, \
     WIDTH, \
@@ -18,7 +18,8 @@ from constants import GAME_MUSIC_PATH, \
     FPS, \
     FONT_PATH, \
     stage_1, stage_2, stage_3, \
-    game_over_1, game_over_2, game_over_3, game_over_4
+    game_over_1, game_over_2, game_over_3, game_over_4, \
+    backgroundImage_2, backgroundImage_3
 
 """
 설정 창 넣기
@@ -67,6 +68,14 @@ def game(isMouse=False):
     setting = False #설정창
 
     def redraw_window(pause=False): # 렌더링
+        if level == 6:
+            bg_obj.to_next(backgroundImage_2)
+            slow_bg_obj.to_next(backgroundImage_2)
+
+        if level == 11:
+            bg_obj.to_next(backgroundImage_3)
+            slow_bg_obj.to_next(backgroundImage_3)
+
         if not pause:
             bg_obj.update()
         bg_obj.render(CANVAS)
@@ -159,15 +168,15 @@ def game(isMouse=False):
             pygame.mouse.set_visible(True)
 
 
-        if level < 15 and level % 5 == 1 and story[int(level / 5)]: # story
+        if level < 15 and level % 5 == 1 and story[level // 5]: # story
             # redraw_window()
-            story[int(level / 5)] = False
+            story[level // 5] = False
             time.sleep(1)
             redraw_window()
 
-        elif level <= 15 and level > 1 and level % 5 == 0 and boss[int(level / 5)]: # boss
+        elif level <= 15 and level > 1 and level % 5 == 0 and boss[level // 5]: # boss
             time.sleep(0.5)
-            boss[int(level / 5)] = False
+            boss[level // 5] = False
             redraw_window()
 
         if level > 15:
@@ -183,9 +192,11 @@ def game(isMouse=False):
             chapter = (level - 1) // 5 + 1
             wave_point = 0
             count = 0
+            spawn_miny = -1800
+            spawn_maxy = -100
 
             if level % 5 == 0:
-                enemies.append(Enemy(WIDTH/2, -1200, chapter, 4)) # boss 구현 후 넣어주기
+                enemies.append(Enemy(WIDTH/2, -100, chapter, 4)) # boss 구현 후 넣어주기
 
             else:
                 for i in [8, 4, 2, 1]:
@@ -201,8 +212,10 @@ def game(isMouse=False):
                     count += 1
                     if appearance[level % 5 - 1] & i:
                         while wave_point >= i:
-                            enemies.append(Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1200, -100), chapter, 4-count))
+                            enemies.append(Enemy(random.uniform(50, WIDTH - 100), random.uniform(spawn_miny, spawn_maxy), chapter, 4-count))
                             wave_point -= i
+                random.shuffle(enemies)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -259,7 +272,7 @@ def game(isMouse=False):
 
             if collide(enemy, player): # 충돌시 (몹-총알, 몹-유저)
                 player.SCORE += 50
-                if enemy.isBoss:
+                if enemy.is_boss:
                     if enemy.boss_max_health - 5 <= 0:
                         enemies.remove(enemy)
                         enemy.boss_max_health = 100
