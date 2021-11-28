@@ -17,17 +17,15 @@ from constants import HEIGHT, \
     GREEN_LASER, \
     PLAYER_LASER_SOUND, \
     ENEMY_LASER_SOUND, \
-    MENU_MUSIC_PATH, \
-    TYPE_MODE
+    MENU_MUSIC_PATH
 
-# 몹들
 
 class Ship:
-    CoolDown = 25
+    CoolDown = 25   #총알속도
     boss_max_health = 99
     SCORE = 0
 
-    def __init__(self, x, y, health=1):
+    def __init__(self, x, y, health=100):
         self.x = x
         self.y = y
         self.health = health
@@ -82,7 +80,6 @@ class Ship:
     def get_score(self):
         return self.SCORE
 
-#  유저 ship
 class Player(Ship):
     def __init__(self, x, y, health=100, mouse_movement = False):
         super().__init__(x, y, health)
@@ -157,10 +154,18 @@ class Player(Ship):
             else:
                 for obj in objs:
                     if laser.collision(obj):
-                        self.SCORE += 50
-                        if obj.is_boss:
+                        ## 코드 추가본
+                        if obj.ship_type == 'easy':
+                            self.SCORE += 10
+                        if obj.ship_type == 'medium':
+                            self.SCORE += 20
+                        if obj.ship_type == 'hard':
+                            self.SCORE += 30
+                        ##여기까지
+                        if obj.ship_type == 'boss':
                             if self.boss_max_health - 10 <= 0:
                                 objs.remove(obj)
+                                self.SCORE += 100                    #수정부분
                                 self.boss_max_health = 100
                             else:
                                 self.boss_max_health -= 10
@@ -189,21 +194,36 @@ class Player(Ship):
                                                int(self.ship_img.get_width() * (self.health/self.max_health)),
                                                10))
 
-# 몹들 (일반, 보스)
 class Enemy(Ship):
+    TYPE_MODE = [[(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],
+                       [(EASY_SPACE_SHIP, RED_LASER, 10, 1, True, True),
+                        (MEDIUM_SPACE_SHIP, BLUE_LASER, 18, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (HARD_SPACE_SHIP, GREEN_LASER, 25, 1, True, True),
+                        (BOSS_SHIP, FLAME_LASER, 100, 1, True, True)],]
+
     speed = 0
     is_vertical_move = False
     is_horizontal_move = False
     direction = 0
-    is_boss = False
+    isBoss = False
 
-    def __init__(self, x, y, chapter, number):
-        super().__init__(x, y)
-        self.ship_img, self.laser_img, self.damage, self.speed, self.is_vertical_move, self.is_horizontal_move = TYPE_MODE[chapter-1][number]
+    def __init__(self, x, y, chapter, number, health=100):
+        super().__init__(x, y, health)
+        self.ship_img, self.laser_img, self.damage, self.speed, self.is_vertical_move, self.is_horizontal_move = self.TYPE_MODE[chapter-1][number]
         self.mask = pygame.mask.from_surface(self.ship_img)
 
         if number-1 == 4:
-            self.is_boss = True
+            self.isBoss = True
 
         if self.is_horizontal_move:
             self.direction = random.random()

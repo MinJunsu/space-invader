@@ -27,10 +27,6 @@ class ScrollBackground():
         CANVAS.blit(self.bgimage, (x, self.bgY1))
         CANVAS.blit(self.bgimage, (x, self.bgY2))
 
-    def to_next(self, bg_img):
-        self.bgimage = bg_img
-        self.rectBGimg = self.bgimage.get_rect()
-
 
 bg_obj = ScrollBackground(BG)
 slow_bg_obj = ScrollBackground(BG, 1.5)

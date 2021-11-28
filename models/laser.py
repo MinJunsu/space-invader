@@ -19,6 +19,7 @@ class Laser:
         starting_x = center_x - background_width//2
         x_offset, y_offset = self.img.get_size()
         window.blit(self.img, (starting_x+self.x-x_offset/2, self.y-y_offset/2))
+
     def move(self, vel):
         self.y += vel
 
