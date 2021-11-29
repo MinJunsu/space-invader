@@ -1,5 +1,5 @@
 """This module contains all of the necessary PyGame components for
-running a simplified game loop.
+running a simplified games loop.
 Use it for test cases on PyGame-related code.
 """
 import sys
@@ -7,11 +7,7 @@ import pygame
 import os
 from pathlib import Path
 from pygame.locals import *
-from models.entity import EnemyGroup, PlayerGroup
-from pygame.mixer import Sound
-from models.players import PlanePlayer
-from models.birds import OldBird, CrazyBird
-from pygame.sprite import GroupSingle, Group
+from screens.managers import ScreenManager
 # Import additional modules here.
 
 
@@ -40,12 +36,7 @@ if pygame_modules_have_loaded():
     game_screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption('Test')
     clock = pygame.time.Clock()
-    BASE_DIR = Path(__file__).resolve().parent
-    SOUND_ROOT = os.path.join(BASE_DIR, 'assets', 'sounds')
-    sound = Sound(os.path.join(SOUND_ROOT, 'background.mp3'))
-    sound.play(loops=-1)
-    player = PlayerGroup()
-    enemy = EnemyGroup()
+    screen_manager = ScreenManager()
 
     def declare_globals():
         # The class(es) that will be tested should be declared and initialized
@@ -56,7 +47,7 @@ if pygame_modules_have_loaded():
         pass
 
     def prepare_test():
-        # Add in any code that needs to be run before the game loop starts.
+        # Add in any code that needs to be run before the games loop starts.
         pass
 
     def handle_input(key_name):
@@ -66,11 +57,10 @@ if pygame_modules_have_loaded():
 
     def update(screen, time):
         # Add in code to be run during each update cycle.
-        # screen provides the PyGame Surface for the game window.
+        # screen provides the PyGame Surface for the games window.
         # time provides the seconds elapsed since the last update.
         pygame.display.update()
-        player.update()
-        enemy.update()
+        screen_manager.run()
 
     # Add additional methods here.
 
@@ -84,17 +74,11 @@ if pygame_modules_have_loaded():
                     pygame.quit()
                     sys.exit()
 
+                screen_manager.push(event)
+
                 if event.type == KEYDOWN:
                     key_name = pygame.key.name(event.key)
                     handle_input(key_name)
-
-                player.move()
-                enemy.move()
-
-            if enemy.is_empty():
-                enemy.upgrade()
-
-            enemy.collide(player.character)
 
             milliseconds = clock.tick(FRAME_RATE)
             seconds = milliseconds / 1000.0
@@ -102,8 +86,7 @@ if pygame_modules_have_loaded():
 
             game_screen.fill((0, 0, 0))
 
-            player.draw(game_screen)
-            enemy.draw(game_screen)
+            game_screen.blit(screen_manager.screen, (0, 0))
 
             sleep_time = (1000.0 / FRAME_RATE) - milliseconds
             if sleep_time > 0.0:
