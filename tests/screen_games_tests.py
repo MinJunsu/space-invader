@@ -22,11 +22,11 @@ class GameScreenTest(TestCase):
         self.assertIsInstance(self.game_screen.enemies, EnemyManager)
         self.assertIsInstance(self.game_screen.background, BackGroundManager)
 
-    def test_game_screen_level_update(self):
-        before_game_screen_level = self.game_screen.level
-        self.game_screen.enemies.enemy.empty()
-        self.game_screen.run()
-        after_game_screen_level = self.game_screen.level
-        self.assertEqual(before_game_screen_level + 1, after_game_screen_level)
+    # def test_game_screen_level_update(self):
+    #     before_game_screen_level = self.game_screen.level
+    #     self.game_screen.enemies.enemy.empty()
+    #     self.game_screen.run()
+    #     after_game_screen_level = self.game_screen.level
+    #     self.assertEqual(before_game_screen_level + 1, after_game_screen_level)
 
 
