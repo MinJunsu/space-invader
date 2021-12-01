@@ -137,13 +137,11 @@ class Player(Ship):
             audio_cfg.play_music(MENU_MUSIC_PATH)
             self.run = False
 
-
     def move(self):
-        if(self.mouse_movement):
+        if self.mouse_movement:
             self.move_with_mouse()
         else:
             self.move_with_keyboard()
-
 
     def move_lasers(self, vel, objs):
         self.coolDown()

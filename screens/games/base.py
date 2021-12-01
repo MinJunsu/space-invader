@@ -1,8 +1,10 @@
-from pygame.constants import KEYDOWN, K_BACKSPACE
+from pygame.constants import KEYDOWN, K_BACKSPACE, K_ESCAPE, K_p
 from pygame.key import get_pressed
+from pygame.time import wait
 
 from models.managers import PlayerManager, EnemyManager, BackGroundManager
 from screens.base import Screen
+from .pause import PauseScreen
 
 
 class GameScreen(Screen):
@@ -11,6 +13,8 @@ class GameScreen(Screen):
         self.level = 0
         self.image = dict()
         self.load_image()
+        self.is_pause = False
+        self.pause = PauseScreen((size[0] // 2, size[1] // 2), set_screen, return_screen)
         self.player = PlayerManager()
         self.enemies = EnemyManager()
         self.background = BackGroundManager()
@@ -26,16 +30,21 @@ class GameScreen(Screen):
             self.set_screen('explain')
 
         if len(self.enemies.enemy) == 0:
+            # if self.player.clear() or self.level == 0:
             self.enemies.upgrade()
             self.level += 1
 
         self.play()
 
     def play(self):
-        self.move()
-        self.collide()
-        self.update()
         self.draw()
+        if self.is_pause:
+            self.pause.draw()
+            # self.blit(self.pause, (300, 100))
+        else:
+            self.move()
+            self.collide()
+            self.update()
 
     def collide(self):
         self.player.collide(self.enemies.enemy)
@@ -47,7 +56,6 @@ class GameScreen(Screen):
         self.enemies.draw(self)
         self.setting()
         self.player.draw(self)
-
 
     def setting(self):
         for i in range(self.player.health_point):
@@ -71,8 +79,17 @@ class GameScreen(Screen):
         if event.type == KEYDOWN:
             key = get_pressed()
 
-            if key[K_BACKSPACE]:
-                self.player.health_point -= 1
+            # if key[K_BACKSPACE]:
+            #     self.player.health_point -= 1
+
+            if key[K_ESCAPE] or key[K_p]:
+                self.is_pause = not self.is_pause
+
+        if self.is_pause:
+            self.pause.get_event(event)
+
+
+
 
 
 

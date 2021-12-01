@@ -41,15 +41,3 @@ class Screen(Surface):
         """
         Implement When you get event in Surface
         """
-
-# class ScreenManager:
-#     def __init__(self):
-#         self.screen = LoadingScreen()
-#         self.player = PlayerManager()
-#         self.enemy = EnemyuManager()
-#
-#     def upgrade(self):
-#         self.screen = DescriptScreen(1)
-#         if 1 % 5:
-#             self.player.upgrade()
-#         self.enemy.upgrade()
