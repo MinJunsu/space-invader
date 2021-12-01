@@ -1,7 +1,7 @@
 from constants import BG
 
 
-class ScrollBackground():
+class ScrollBackground:
     def __init__(self, bg_img, moving_speed=3):
         self.bgimage = bg_img
         self.rectBGimg = self.bgimage.get_rect()
