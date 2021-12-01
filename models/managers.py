@@ -17,6 +17,12 @@ class PlayerManager:
         self.health_point = 5
         self.score = 0
 
+    def clear(self):
+        if self.character.sprite.rect.y > 0:
+            self.character.sprite.rect.y -= 15
+            return False
+        return True
+
     def upgrade(self):
         if self.level == 0:
             self.character.empty()
@@ -39,7 +45,6 @@ class PlayerManager:
                     self.health_point -= 1
 
     def move(self):
-        print(self.score)
         self.character.sprite.move()
 
     def draw(self, surface):
@@ -103,7 +108,7 @@ class BackGroundManager:
         background = BackGround()
         if self.level == 0:
             self.background.empty()
-            background.set_images('stage1')
+            background.set_images('stage3')
             self.background.add(background)
 
         elif self.level == 1:
