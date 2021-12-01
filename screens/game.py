@@ -134,12 +134,13 @@ def game(isMouse=False):
 
         if len(enemies) == 0:
             level += 1
-            chapter = int((level - 1) / 5 + 1)
+
+            chapter = (level - 1) // 5 + 1
             wave_point = 0
             count = 0
 
-            if level % 5 == 0 and boss_entry[int(level/5)-1]:
-                enemies.append(Enemy(WIDTH/2, -1200, chapter, 4)) # boss 구현 후 넣어주기
+            if level % 5 == 0:
+                enemies.append(Enemy(WIDTH / 2, -1200, chapter, 4))  # boss 구현 후 넣어주기
 
             else:
                 for i in [8, 4, 2, 1]:
@@ -147,7 +148,7 @@ def game(isMouse=False):
                         wave_point += i
                         count += 1
                 wave_point /= count
-                wave_point *= 1.2 ** (int(level % 5) - 1)
+                wave_point *= 1.2 ** (level % 5 - 1)
                 wave_point *= random.randrange(20, 25, 1)
 
                 count = 0
@@ -155,15 +156,8 @@ def game(isMouse=False):
                     count += 1
                     if appearance[level % 5 - 1] & i:
                         while wave_point >= i:
-                            enemies.append(Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1200, -100), chapter, 4-count))
+                            enemies.append(Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1200, -100), chapter, 4 - count))
                             wave_point -= i
-
-            for i in range(wave_length if level < 10 else 1):
-                enemies.append(Enemy(
-                    random.randrange(50, WIDTH - 100),
-                    random.randrange(-200, -100),
-                    random.choice(['easy', 'medium', 'hard']) if level < 10 else 'boss')
-                )
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
