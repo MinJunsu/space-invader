@@ -45,7 +45,7 @@ class BirdTest(TestCase):
         before_pos_x = self.smile_bird.rect.x
         self.smile_bird.move()
         after_pos_x = self.smile_bird.rect.x
-        self.assertEqual(self.smile_bird.speed, after_pos_x - before_pos_x)
+        self.assertGreater(after_pos_x, before_pos_x)
 
     def test_image_update(self):
         before_image = self.smile_bird.image
