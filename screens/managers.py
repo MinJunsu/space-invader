@@ -3,13 +3,15 @@ from .loading.help import HelpScreen
 from .games.base import GameScreen
 from .loading.setting import SettingScreen
 from .games.explain import ExplainScreen
+from .loading.summary import SummaryScreen
 
 SCREEN = {
     'main': LoadingScreen,
     'game': GameScreen,
     'help': HelpScreen,
     'setting': SettingScreen,
-    'explain': ExplainScreen
+    'explain': ExplainScreen,
+    'summary': SummaryScreen
 }
 
 
