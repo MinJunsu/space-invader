@@ -4,7 +4,7 @@ node {
     stage('PreBuild Stage') {
         echo "---PreBuild Stage---"
         sh 'python3 -m venv .venv'
-        source .venv/bin/activate
+        sh 'source .venv/bin/activate'
         sh 'python3 -m pip install -r requirements.txt'
     }
 
@@ -15,6 +15,6 @@ node {
 
     stage('Push Stage') {
         echo "---Push Stage---"
-        deactivate
+        sh 'deactivate'
     }
 }
