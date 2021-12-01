@@ -1,115 +1,97 @@
-import os
+"""This module contains all of the necessary PyGame components for
+running a simplified games loop.
+Use it for tests cases on PyGame-related code.
+"""
+import sys
 import pygame
-import argparse
+import os
+from pathlib import Path
+from pygame.locals import *
+from screens.managers import ScreenManager
+# Import additional modules here.
 
-from screens.game import game
-from screens.controls import audio_cfg, display_cfg, settings
-from screens.score_board import score_board
-from screens.background import slow_bg_obj
-# from screens.helps import helps
 
-from constants import MENU_MUSIC_PATH, TITLE,\
-    WIDTH,\
-    BOSS_SHIP,\
-    PLAYER_SPACE_SHIP,\
-    PLAYER_LASER,\
-    startImage,\
-    controlImage,\
-    trophyImage,\
-    CANVAS, \
-    framespersec, \
-    FPS, \
-    FONT_PATH
+# Feel free to edit these constants to suit your requirements.
+FRAME_RATE = 60.0
+SCREEN_SIZE = (640, 480)
 
-# parsing arguments
-ag = argparse.ArgumentParser()
-ag.add_argument("--mute", help="disable all sounds", action="store_true")
-args = vars(ag.parse_args())
 
-if args["mute"]:
-    audio_cfg.toggle_mute()
+def pygame_modules_have_loaded():
+    success = True
 
+    if not pygame.display.get_init:
+        success = False
+    if not pygame.font.get_init():
+        success = False
+    if not pygame.mixer.get_init():
+        success = False
+
+    return success
+
+pygame.mixer.pre_init(44100, -16, 2, 512)
+pygame.init()
 pygame.font.init()
 
-pygame.display.set_caption(TITLE)
+if pygame_modules_have_loaded():
+    game_screen = pygame.display.set_mode(SCREEN_SIZE)
+    pygame.display.set_caption('Test')
+    clock = pygame.time.Clock()
+    screen_manager = ScreenManager()
 
-def main():
-    title_font = pygame.font.Font(os.path.join(FONT_PATH, 'edit_undo.ttf'), 60)
-    sub_title_font = pygame.font.Font(os.path.join(FONT_PATH, 'neue.ttf'), 30)
-    control_font = pygame.font.Font(os.path.join(FONT_PATH, 'neue.ttf'), 36)
+    def declare_globals():
+        # The class(es) that will be tested should be declared and initialized
+        # here with the global keyword.
+        # Yes, globals are evil, but for a confined tests script they will make
+        # everything much easier. This way, you can access the class(es) from
+        # all three of the methods provided below.
+        pass
 
-    audio_cfg.play_music(MENU_MUSIC_PATH)
-    run = True
-    while run:
-        slow_bg_obj.update()
-        slow_bg_obj.render(CANVAS)
+    def prepare_test():
+        # Add in any code that needs to be run before the games loop starts.
+        pass
 
-        window_width = CANVAS.get_width()
-        background_width = slow_bg_obj.rectBGimg.width
-        screen_rect = CANVAS.get_rect()
-        center_x = screen_rect.centerx
-        starting_x = center_x - background_width//2
-        ending_x = center_x + background_width//2
+    def handle_input(key_name):
+        # Add in code for input handling.
+        # key_name provides the String name of the key that was pressed.
+        pass
 
-        title_label = title_font.render('Start the Game', 1, (0, 209, 0))
-        CANVAS.blit(title_label, (window_width//2 - title_label.get_width()//2 - 15, 350))
-        CANVAS.blit(startImage, (window_width//2 + title_label.get_width()//2, 353))
-        sub_title_label = sub_title_font.render('Press ENTER to play with KEYBOARD', 1, (249, 166, 2))
-        CANVAS.blit(sub_title_label, (window_width//2 - sub_title_label.get_width()//2, 410))
-        sub_title_label = sub_title_font.render('Click LEFT MOUSE button to play with MOUSE', 1, (249, 166, 2))
-        CANVAS.blit(sub_title_label, (window_width//2 - sub_title_label.get_width()//2, 450))
-
-        # Ships
-        CANVAS.blit(BOSS_SHIP, (starting_x + 285, 75))
-        CANVAS.blit(PLAYER_SPACE_SHIP, (window_width//2 - 50, 575))
-        CANVAS.blit(PLAYER_LASER, (window_width//2 - 50, 475))
-
-        # Control Page
-        control_label = control_font.render('[c]', 1, (255, 255, 255))
-        CANVAS.blit(control_label, (starting_x + 95, 32))
-        CANVAS.blit(controlImage, (starting_x + 30, 15))
-
-        # ScoreBoard Page
-        score_label = control_font.render('[s]', 1, (255, 255, 255))
-        CANVAS.blit(score_label, (ending_x - 67, 30))
-        CANVAS.blit(trophyImage, (ending_x - 130, 25))
-
-        audio_cfg.display_volume(CANVAS)
+    def update(screen, time):
+        # Add in code to be run during each update cycle.
+        # screen provides the PyGame Surface for the games window.
+        # time provides the seconds elapsed since the last update.
         pygame.display.update()
-        framespersec.tick(FPS) # capping frame rate to 60
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_m:
-                    audio_cfg.toggle_mute()
-                if event.key == pygame.K_PLUS or event.key == pygame.K_EQUALS:
-                    audio_cfg.inc_volume(5)
-                if event.key == pygame.K_MINUS:
-                    audio_cfg.dec_volume(5)
-                if event.key == pygame.K_f:
-                    display_cfg.toggle_full_screen()
+        screen_manager.run()
 
-        keys = pygame.key.get_pressed()
-        button = pygame.mouse.get_pressed()    
-        if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
-            run = False
+    # Add additional methods here.
 
-        if keys[pygame.K_c]:
-            settings()
+    def main():
+        declare_globals()
+        prepare_test()
 
-        # if keys[pygame.K_h]:
-        #     helps()
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
 
-        if keys[pygame.K_s]:
-            score_board()
+                screen_manager.push(event)
 
-        if keys[pygame.K_RETURN]:
-            game()
+                if event.type == KEYDOWN:
+                    key_name = pygame.key.name(event.key)
+                    handle_input(key_name)
 
-        if button[0]:
-            game(True)
+            milliseconds = clock.tick(FRAME_RATE)
+            seconds = milliseconds / 1000.0
+            update(game_screen, seconds)
 
-    pygame.quit()
+            game_screen.fill((0, 0, 0))
 
-main()
+            game_screen.blit(screen_manager.screen, (0, 0))
+
+            sleep_time = (1000.0 / FRAME_RATE) - milliseconds
+            if sleep_time > 0.0:
+                pygame.time.wait(int(sleep_time))
+            else:
+                pygame.time.wait(int(1000 / 60))
+
+    main()

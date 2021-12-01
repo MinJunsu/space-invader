@@ -57,4 +57,9 @@ class BirdTest(TestCase):
         before_image_index = self.smile_bird.image_index
         self.smile_bird.update()
         after_image_index = self.smile_bird.image_index
-        self.assertEqual(before_image_index + 1, after_image_index)
+        self.assertLess(before_image_index, after_image_index)
+
+
+if __name__ == '__main__':
+    test = BirdTest()
+    test.run()
