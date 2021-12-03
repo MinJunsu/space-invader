@@ -16,6 +16,7 @@ class Enemy(Entity):
         super().__init__(os.path.join('enemy', name))
         self.explosion = None
         self.score = 10
+        self.is_boss = False
 
     def move(self) -> None:
         if self.rect.x < 0 or WIDTH - self.image.get_width() < self.rect.x:

@@ -4,6 +4,7 @@ from screens.games.base import GameScreen
 from screens.loading.setting import SettingScreen
 from screens.loading.summary import SummaryScreen
 from screens.games.explain import ExplainScreen
+from screens.loading.score import ScoreScreen
 
 SCREEN = {
     'main': LoadingScreen,
@@ -11,7 +12,8 @@ SCREEN = {
     'help': HelpScreen,
     'setting': SettingScreen,
     'explain': ExplainScreen,
-    'summary': SummaryScreen
+    'summary': SummaryScreen,
+    'score': ScoreScreen
 }
 
 
