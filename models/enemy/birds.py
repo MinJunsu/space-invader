@@ -91,7 +91,6 @@ class CrazyBird(Bird):
         self.score = 500
 
     def update(self, *args, **kwargs) -> None:
-        self.coll_down_count += 1
         super().update()
         self.children.update()
 

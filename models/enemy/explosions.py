@@ -1,4 +1,5 @@
 from models import Explosion
+from engine.sound import SoundManager
 
 
 class BirdExplosion(Explosion):
