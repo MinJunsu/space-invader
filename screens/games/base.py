@@ -24,6 +24,10 @@ class GameScreen(Screen):
         self.image['trophy'] = self.get_image('trophy.png')
 
     def run(self):
+        # TODo stage3까지 완성되면 clear effect로 변경
+        if self.player.health_point == 0:
+            self.set_screen('dying')
+
         if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
             self.player.upgrade()
             self.background.upgrade()

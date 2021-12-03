@@ -5,7 +5,7 @@ from pygame.sprite import Group
 from pygame import image
 
 from .base import Enemy
-from .explosions import BirdExplosion
+from .explosions import BirdExplosion, BirdBossExplosion
 
 
 class Bird(Enemy):
@@ -36,8 +36,8 @@ class Bird(Enemy):
 
 
 class SmileBird(Bird):
-    DEFAULT_COUNT = 5
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 5
+    DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -47,8 +47,8 @@ class SmileBird(Bird):
 
 
 class PoisonedBird(Bird):
-    DEFAULT_COUNT = 8
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 8
+    DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -58,8 +58,8 @@ class PoisonedBird(Bird):
 
 
 class CircledBird(Bird):
-    DEFAULT_COUNT = 10
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 10
+    DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -69,8 +69,8 @@ class CircledBird(Bird):
 
 
 class OldBird(Bird):
-    DEFAULT_COUNT = 15
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 15
+    DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -85,7 +85,9 @@ class CrazyBird(Bird):
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.speed = 8
-        self.health_point = 15
+        # self.health_point = 15
+        self.health_point = 1
+        self.explosion = BirdBossExplosion
         self.set_images('crazy_bird')
         self.children = Group()
         self.score = 500

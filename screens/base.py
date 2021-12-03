@@ -4,6 +4,7 @@ import os
 from pygame import Surface, image
 from pygame.font import Font
 from pygame.mixer import Sound
+from pygame.sprite import GroupSingle
 
 
 class Screen(Surface):
@@ -16,7 +17,7 @@ class Screen(Surface):
         super(Screen, self).__init__(size)
         self.font = self.get_font("edit_undo.ttf", 30)
         self.big_font = self.get_font("edit_undo.ttf", 40)
-        self.middle_font = self.get_font('edit_undo.ttf',25)
+        self.middle_font = self.get_font('elice.ttf', 20)
         self.small_font = self.get_font("edit_undo.ttf", 20)
         self.set_screen = set_screen
         self.return_screen = return_screen
@@ -41,3 +42,46 @@ class Screen(Surface):
         """
         Implement When you get event in Surface
         """
+
+
+class TextBaseScreen(Screen):
+    CONTEXT = None
+
+    def __init__(self, size, set_screen, return_screen, category, num):
+        super().__init__(size, set_screen, return_screen)
+        self.count = 0
+        self.index = 0
+        self.big_font = self.get_font('elice.ttf', 50)
+        self.font = self.get_font('elice.ttf', 15)
+        self.context = self.CONTEXT.get(category)[num]
+        self.sound = self.set_sound('explain.wav')
+        self.sound.play(-1)
+        self.background = GroupSingle()
+        self.category = category
+
+    def draw(self):
+        # Draw Title
+        title = self.big_font.render(f"STAGE {self.context['stage']}", 1, (255, 255, 255))
+        self.blit(title, (640 // 2 - title.get_width() // 2, 50))
+
+        for idx, element in enumerate(self.context['text']):
+            self.count += 1
+            if self.index > idx:
+                text = self.font.render(element, 1, (255, 255, 255))
+                position = (280, 130 + 35 * idx)
+                self.blit(text, position)
+
+            elif self.index == idx:
+                text = self.font.render(element[0:self.count], 1, (255, 255, 255))
+                position = (280, 130 + 35 * idx)
+                self.blit(text, position)
+                if element[0:self.count] == element:
+                    self.index += 1
+                    self.count = 0
+
+        start = self.small_font.render("Press [SPACE] to Next Step!!", 1, (255, 255, 255))
+        self.blit(start, (640 // 2 - start.get_width() // 2, 450))
+        self.update()
+
+    def update(self):
+        self.background.update()

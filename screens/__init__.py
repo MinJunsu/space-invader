@@ -1,2 +1,2 @@
 from .contexts import *
-from .base import Screen
+from .base import Screen, TextBaseScreen

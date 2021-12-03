@@ -95,37 +95,72 @@ EXPLAIN_CONTEXT = {
                 '보...ㅇ..는.. 모....ㄷ..적들... 을.. 무ㅉ...르도...록...',
                 'ㅃ..르..게.. 정...ㄹ...하...ㄷ...록...ㅎ..운을... ㅂ..네...',
             ]
-        }
-    ],
-    'ending': [
+        },
         {
-            'stage': 1,
+            'stage': 3,
             'text': [
-                '지구를 지키지 못했다...',
-                '지구 생명체들은 모두 최면에 걸려 노예가 되었다...'
+                '000 대..원... 고....ㅅ..많았....다...',
+                '지구..ㅈ..ㅜ변의..외계..생명..ㅊ..ㅔ..는',
+                'ㅁㅗ..두..정리..ㄷ..ㅗ..ㅣ었다...',
+                '하...ㅈ...ㅣ...만...언...ㅈ...ㅔ...ㄴ...가...다시....',
+                '그들ㅇ...ㅣ...침랴...ㄱ...ㅎ...ㅐ...올...것이ㄷ...ㅏ....',
+                '다..ㅅ..는.. 지..구를.. 침..ㄹ..하지..못..하도..ㄹ...',
+                '이..ㅂ..에는..ㅇ..ㅜ리가...먼ㅈ.ㅓ..ㅅ...공ㅎ..ㅏ자...',
+                '출격ㄱ...ㅕㄱ...하라...!!',
             ]
-        }
-    ]
+        },
+    ],
+    'dying': {
+        'stage': 'Ending',
+        'text': [
+            '지구를 지키지 못했다...',
+            '지구 생명체들은 모두 최면에 걸려 노예가 되었다...'
+        ]
+    },
+    'clear': {
+        'stage': 'Clear',
+        'text': [
+            '000 대원 고생 많았다!',
+            '이제 지구는 안전 하다!',
+            '외계 행성의 자원들로 지구가 더 풍족해 질 것이다!',
+        ]
+    }
 }
+
+# SUMMARY_CONTEXT = [
+# # 외계행성의 침공으로 지구 생명체들이 위험하다
+# # 조종당하는 지구생명체를 무찌르고
+# # 지구를 둘러싼 함대를 격파한 후
+# # 외계 행성에 복수를 하러 가자
+#     {
+#         'text': 'Life on Earth is in danger due ',
+#     },
+#     {
+#         'text': 'to the invasion of extraterrestrial planets',
+#     },
+#     {
+#         'text': 'It defeats the controlled life on Earth',
+#     },
+#     {
+#         'text': 'After defeating the fleet surrounding the earth,',
+#     },
+#     {
+#         'text': 'Let\'s go get revenge on the alien planet.'
+#     }
+# ]
+
 SUMMARY_CONTEXT = [
-# 외계행성의 침공으로 지구 생명체들이 위험하다
-# 조종당하는 지구생명체를 무찌르고
-# 지구를 둘러싼 함대를 격파한 후
-# 외계 행성에 복수를 하러 가자
     {
-        'text': 'Life on Earth is in danger due ',
+        'text': '외계행성의 침공으로 지구 생명체들이 위험하다 ',
     },
     {
-        'text': 'to the invasion of extraterrestrial planets',
+        'text': '조종당하는 지구생명체를 무찌르고',
     },
     {
-        'text': 'It defeats the controlled life on Earth',
+        'text': '지구를 둘러싼 함대를 격파한 후',
     },
+
     {
-        'text': 'After defeating the fleet surrounding the earth,',
-    },
-    {
-        'text': 'Let\'s go get revenge on the alien planet.'
+        'text': '외계 행성에 복수를 하러 가자!'
     }
 ]
-

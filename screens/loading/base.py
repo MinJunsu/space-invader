@@ -1,5 +1,6 @@
 from pygame.key import get_pressed
 from pygame.constants import K_SPACE, K_UP, K_DOWN, QUIT, KEYDOWN
+from pygame.sprite import GroupSingle
 
 from screens.base import Screen
 from screens import LOADING_CONTEXT

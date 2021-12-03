@@ -2,7 +2,7 @@ from random import randint
 from pygame.sprite import Group
 
 from .base import Enemy
-from .explosions import BirdExplosion
+from .explosions import SpaceShipExplosion
 from .bullets import BlueSpaceShipBullet, RedSpaceShipBullet, GreenSpaceShipBullet, CircledSpaceShipBullet
 
 
@@ -14,7 +14,7 @@ class SpaceShip(Enemy):
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.health_point = 1
-        self.explosion = BirdExplosion
+        self.explosion = SpaceShipExplosion
         self.weapon = None
         self.weapons = Group()
         self.cool_down_counter = 0
@@ -32,6 +32,7 @@ class SpaceShip(Enemy):
 
 class BlueSpaceShip(SpaceShip):
     DEFAULT_COUNT = 10
+    # DEFAULT_COUNT = 1
     COOLDOWN = 70
 
     def __init__(self, pos_x, pos_y):
@@ -43,7 +44,8 @@ class BlueSpaceShip(SpaceShip):
 
 
 class RedSpaceShip(SpaceShip):
-    DEFAULT_COUNT = 10
+    # DEFAULT_COUNT = 10
+    DEFAULT_COUNT = 1
     COOLDOWN = 60
 
     def __init__(self, pos_x, pos_y):
@@ -55,7 +57,8 @@ class RedSpaceShip(SpaceShip):
 
 
 class GreenSpaceShip(SpaceShip):
-    DEFAULT_COUNT = 15
+    # DEFAULT_COUNT = 15
+    DEFAULT_COUNT = 1
     COOLDOWN = 50
 
     def __init__(self, pos_x, pos_y):
@@ -72,7 +75,7 @@ class CircledSpaceShip(SpaceShip):
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
-        self.health_point = 20
+        self.health_point = 1
         self.speed = 8
         self.set_images('circled_ship')
         self.weapon = CircledSpaceShipBullet
