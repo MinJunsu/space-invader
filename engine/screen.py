@@ -1,8 +1,8 @@
-from .loading.base import LoadingScreen
-from .loading.help import HelpScreen
-from .games.base import GameScreen
-from .loading.setting import SettingScreen
-from .games.explain import ExplainScreen
+from screens.loading.base import LoadingScreen
+from screens.loading.help import HelpScreen
+from screens.games.base import GameScreen
+from screens.loading.setting import SettingScreen
+from screens.games.explain import ExplainScreen
 
 SCREEN = {
     'main': LoadingScreen,

@@ -5,6 +5,7 @@ from pygame import image
 from pygame.sprite import Sprite, Group, spritecollide
 from pygame.mixer import Sound
 
+from engine.sound import SoundManager
 
 WIDTH = 640
 HEIGHT = 480
@@ -31,9 +32,10 @@ class Entity(Sprite):
         self.weapon = None
         self.weapons = None
         self.is_reverse = False
+        self.sound_manager = SoundManager()
 
     def set_sound(self, name):
-        self.sound = Sound(os.path.join(self.SOUND_ROOT, name))
+        self.sound = self.sound_manager.get(name)
 
     def set_images(self, image_path) -> None:
         os.chdir(os.path.join(Entity.IMAGE_ROOT, os.path.join(self.name, f'{image_path}')))
@@ -77,7 +79,7 @@ class BackGround(Entity):
 
     def set_sound(self, name):
         super().set_sound(name)
-        self.sound.play()
+        self.sound.play(-1)
 
 
 class Bullet(Entity):
@@ -85,6 +87,7 @@ class Bullet(Entity):
         super().__init__('bullets')
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.sounds = SoundManager()
 
     def set_sound(self, name):
         super().set_sound(name)
@@ -94,6 +97,7 @@ class Bullet(Entity):
 class Explosion(Entity):
     def __init__(self):
         super().__init__('explosion')
+        self.sounds = SoundManager()
 
     def set_sound(self, name):
         super().set_sound(name)
