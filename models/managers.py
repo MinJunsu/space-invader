@@ -1,5 +1,3 @@
-import os
-
 from pygame.sprite import Group, GroupSingle
 
 from models import BackGround

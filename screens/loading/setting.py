@@ -1,6 +1,8 @@
-from pygame.constants import KEYDOWN, K_h, K_LEFTBRACKET, K_RIGHTBRACKET, K_m, K_BACKSPACE, K_PLUS, K_MINUS
+from pygame.constants import KEYDOWN, K_h, K_UP, K_DOWN, K_m, K_BACKSPACE, K_LEFT, K_RIGHT
 from pygame.key import get_pressed
 
+from engine.sound import SoundManager
+from utils.constants import game_tick
 from screens import Screen, SETTING_CONTEXT
 
 
@@ -9,6 +11,9 @@ class SettingScreen(Screen):
 
     def __init__(self, size, set_screen, return_screen):
         super(SettingScreen, self).__init__(size, set_screen, return_screen)
+        self.sound_manager = SoundManager()
+        self.set_sound('menu.wav')
+        self.tick = game_tick()
 
     def draw(self):
         # Draw Title
@@ -36,23 +41,25 @@ class SettingScreen(Screen):
             if key[K_h]:
                 self.set_screen('help')
 
-            # TODO: Change Game Ticks
-            elif key[K_LEFTBRACKET]:
-                pass
+            elif key[K_DOWN]:
+                self.tick.down()
 
-            elif key[K_RIGHTBRACKET]:
-                pass
+            elif key[K_UP]:
+                print("123")
+                self.tick.up()
 
             # TODO: Mute Audio
             elif key[K_m]:
-                pass
+                self.sound_manager.mute()
 
             # TODO: Change Audio Volume
-            elif key[K_PLUS]:
-                pass
+            elif key[K_RIGHT]:
+                self.sound_manager.volume_up()
 
-            elif key[K_MINUS]:
-                pass
+            elif key[K_LEFT]:
+                self.sound_manager.volume_down()
 
             elif key[K_BACKSPACE]:
                 self.set_screen('main')
+
+        print(self.sound_manager.volume)
