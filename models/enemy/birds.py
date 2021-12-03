@@ -85,13 +85,12 @@ class CrazyBird(Bird):
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
         self.speed = 8
-        self.health_point = 15
+        self.health_point = 10
         self.set_images('crazy_bird')
         self.children = Group()
         self.score = 500
 
     def update(self, *args, **kwargs) -> None:
-        self.coll_down_count += 1
         super().update()
         self.children.update()
 
