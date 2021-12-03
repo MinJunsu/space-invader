@@ -15,22 +15,22 @@ class ManagerTest(TestCase):
         self.enemyManager = EnemyManager()
         self.backgroundManager = BackGroundManager()
 
-    def test_PlayerManager_attribute(self):
+    def test_playerManager_attribute(self):
         self.assertEqual(self.playerManager.level, 0)
         self.assertIsInstance(self.playerManager.character, GroupSingle)
         self.assertEqual(self.playerManager.health_point, 5)
         self.assertEqual(self.playerManager.score, 0)
 
-    def test_EnemyManager_attribute(self):
+    def test_enemymanager_attribute(self):
         self.assertEqual(self.enemyManager.level, 0)
         self.assertIsInstance(self.enemyManager.enemy, Group)
         self.assertIsInstance(self.enemyManager.collision, Group)
 
-    def test_BackGroundManager_attribute(self):
+    def test_backgroundmanager_attribute(self):
         self.assertIsInstance(self.backgroundManager.background, GroupSingle)
         self.assertEqual(self.backgroundManager.level, 0)
 
-    def test_PlayerManager_upgrade(self):
+    def test_playermanager_upgrade(self):
         before_level = self.playerManager.level
         self.playerManager.upgrade()
         after_level = self.playerManager.level
@@ -48,17 +48,18 @@ class ManagerTest(TestCase):
             self.assertEqual(type(self.playerManager.character.sprite), type(Other(0, 0)))
         '''
 
-    def test_EnemyManager_upgrade(self):
+    def test_enemymanager_upgrade(self):
         before_level = self.enemyManager.level
         self.enemyManager.upgrade()
         after_level = self.enemyManager.level
         self.assertEqual(1, after_level - before_level)
 
-    def test_EnemyManager_is_empty(self):
-        if len(self.enemyManager.enemy.sprites()) == 0:
-            self.assertTrue(self.enemyManager.is_empty())
+    def test_enemymanager_is_empty(self):
+        for enemy in self.enemyManager.enemy.sprites():
+            enemy.kill()
+        self.assertTrue(self.enemyManager.is_empty())
 
-    def test_backgroundManager_upgrade(self):
+    def test_backgroundmanager_upgrade(self):
         before_level = self.backgroundManager.level
         before_background = self.backgroundManager.background.sprite
         self.backgroundManager.upgrade()
@@ -68,13 +69,3 @@ class ManagerTest(TestCase):
 
         after_background = self.backgroundManager.background.sprite
         self.assertNotEqual(before_background, after_background)
-
-test = ManagerTest()
-test.setUp()
-test.test_PlayerManager_attribute()
-test.test_EnemyManager_attribute()
-test.test_BackGroundManager_attribute()
-test.test_PlayerManager_upgrade()
-test.test_EnemyManager_upgrade()
-test.test_EnemyManager_is_empty()
-test.test_backgroundManager_upgrade()

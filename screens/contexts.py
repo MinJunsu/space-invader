@@ -23,20 +23,24 @@ HELP_CONTEXT = [
 
 SETTING_CONTEXT = [
     {
-        'name': 'SPEED UP',
-        'key': '<'
+        'name': 'MOVE LEFT (PRESS KEY TO CHANGE)',
+        'key': 'A'
     },
     {
-        'name': 'SPEED DOWN',
-        'key': '>'
+        'name': 'MOVE RIGHT (PRESS KEY TO CHANGE)',
+        'key': 'D'
+    },
+    {
+        'name': 'SPEED (PRESS X OR Z TO CHANGE)',
+        'key': '|'
+    },
+    {
+        'name': 'VOLUME (PRESS X OR Z TO CHANGE)',
+        'key': '|'
     },
     {
         'name': 'MUTE AUDIO',
         'key': 'M'
-    },
-    {
-        'name': 'VOLUME UP/DOWN',
-        'key': '+/-'
     }
 ]
 
@@ -102,3 +106,12 @@ EXPLAIN_CONTEXT = {
         }
     ]
 }
+
+PAUSE_CONTEXT = [
+    {
+        'text': ' Press [ESC] to return Game!!'
+    },
+    {
+        'text': '   Your Score is'
+    }
+]

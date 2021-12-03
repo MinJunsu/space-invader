@@ -1,4 +1,4 @@
-from pygame.constants import KEYDOWN, K_BACKSPACE
+from pygame.constants import KEYDOWN, K_BACKSPACE, K_ESCAPE
 from pygame.key import get_pressed
 
 from models.managers import PlayerManager, EnemyManager, BackGroundManager
@@ -74,5 +74,6 @@ class GameScreen(Screen):
             if key[K_BACKSPACE]:
                 self.player.health_point -= 1
 
-
+            elif key[K_ESCAPE]:
+                self.set_screen('pause')
 
