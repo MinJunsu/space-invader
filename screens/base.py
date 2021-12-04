@@ -6,6 +6,8 @@ from pygame.font import Font
 from pygame.mixer import Sound
 from pygame.sprite import GroupSingle
 
+from models import BackGround
+
 
 class Screen(Surface):
     BASE_PATH = Path(__file__).resolve().parent.parent
@@ -47,13 +49,14 @@ class Screen(Surface):
 class TextBaseScreen(Screen):
     CONTEXT = None
 
-    def __init__(self, size, set_screen, return_screen, category, num):
+    def __init__(self, size, set_screen, return_screen, category):
         super().__init__(size, set_screen, return_screen)
         self.count = 0
         self.index = 0
         self.big_font = self.get_font('elice.ttf', 50)
+        self.middle_font = self.get_font('elice.ttf', 20)
         self.font = self.get_font('elice.ttf', 15)
-        self.context = self.CONTEXT.get(category)[num]
+        self.context = self.CONTEXT.get(category)
         self.sound = self.set_sound('explain.wav')
         self.sound.play(-1)
         self.background = GroupSingle()
@@ -79,9 +82,12 @@ class TextBaseScreen(Screen):
                     self.index += 1
                     self.count = 0
 
-        start = self.small_font.render("Press [SPACE] to Next Step!!", 1, (255, 255, 255))
-        self.blit(start, (640 // 2 - start.get_width() // 2, 450))
         self.update()
+
+    def set_background(self, name):
+        background = BackGround()
+        background.set_images(name)
+        self.background.add(background)
 
     def update(self):
         self.background.update()

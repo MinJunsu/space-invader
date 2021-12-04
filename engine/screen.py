@@ -3,16 +3,18 @@ from screens.loading.help import HelpScreen
 from screens.games.base import GameScreen
 from screens.loading.setting import SettingScreen
 from screens.loading.summary import SummaryScreen
-from screens.games.explain import ExplainScreen
+from screens.games.explain import BeginFirstScreen, BeginSecondScreen, BeginThirdScreen
 from screens.ending.clear import ClearScreen
-from screens.ending.clear import DyingScreen
+from screens.ending.dying import DyingScreen
 
 SCREEN = {
     'main': LoadingScreen,
     'game': GameScreen,
     'help': HelpScreen,
     'setting': SettingScreen,
-    'explain': ExplainScreen,
+    'begin_first': BeginFirstScreen,
+    'begin_second': BeginSecondScreen,
+    'begin_third': BeginThirdScreen,
     'summary': SummaryScreen,
     'clear': ClearScreen,
     'dying': DyingScreen
@@ -40,12 +42,7 @@ class ScreenManager:
 
     def set_screen(self, action):
         self.before_screen = self.screen
-        if action != 'explain':
-            self.screen = SCREEN.get(action)((WIDTH, HEIGHT), self.set_screen, self.return_screen)
-        else:
-            category = "begin" if self.screen.player.health_point != 0 else "ending"
-            num = self.screen.level % 5 + self.screen.level // 5
-            self.screen = SCREEN.get(action)((WIDTH, HEIGHT), self.set_screen, self.return_screen, category, num)
+        self.screen = SCREEN.get(action)((WIDTH, HEIGHT), self.set_screen, self.return_screen)
 
     def return_screen(self):
         self.screen = self.before_screen
