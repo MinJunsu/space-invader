@@ -47,10 +47,6 @@ def get_high_scores(file_name):
 
     # Check if the file exists, if it does exist...
     if os.path.isfile(file_name):
-        # We open the file and save its contents to the content variable
-        # When we open a file using with, the file is automatically closed after we
-        # are finished, so we don't need to wory about closing it. If you're not accessing
-        # a file in this way, you must remember to close it after use
         with open(file_name, 'r') as content_file:
             content = content_file.read()
     # If it doesn't exist, we create the file and populate it with default values
