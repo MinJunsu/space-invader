@@ -24,10 +24,10 @@ class GameScreen(Screen):
         self.image['trophy'] = self.get_image('trophy.png')
 
     def run(self):
-        # TODO: stage3까지 완성되면 dying effect로 변경
+
         if self.player.health_point == 0:
+            self.set_screen('dying')
             # self.set_screen('dying')
-            self.set_screen('clear')
 
         if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
             self.player.upgrade()
@@ -40,10 +40,11 @@ class GameScreen(Screen):
             elif self.level // 5 == 2:
                 self.set_screen('begin_third')
             else:
-                self.set_screen('clear')
+                # TODO: stage3까지 완성되면 clear effect로 변경
+                self.set_screen('dying')
 
         if len(self.enemies.enemy) == 0:
-            # if self.player.clear() or self.level == 0:
+            # if self.player.dying() or self.level == 0:
             self.enemies.upgrade()
             self.level += 1
         self.play()

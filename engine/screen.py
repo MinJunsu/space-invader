@@ -4,7 +4,6 @@ from screens.games.base import GameScreen
 from screens.loading.setting import SettingScreen
 from screens.loading.summary import SummaryScreen
 from screens.games.explain import BeginFirstScreen, BeginSecondScreen, BeginThirdScreen
-from screens.ending.clear import ClearScreen
 from screens.ending.dying import DyingScreen
 
 SCREEN = {
@@ -16,7 +15,6 @@ SCREEN = {
     'begin_second': BeginSecondScreen,
     'begin_third': BeginThirdScreen,
     'summary': SummaryScreen,
-    'clear': ClearScreen,
     'dying': DyingScreen
 }
 
