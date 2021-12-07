@@ -4,6 +4,7 @@ from .games.base import GameScreen
 from .loading.setting import SettingScreen
 from .games.explain import ExplainScreen
 from .games.pause import PauseScreen
+from .ending.ending import ClearScreen
 
 SCREEN = {
     'main': LoadingScreen,
@@ -11,7 +12,8 @@ SCREEN = {
     'help': HelpScreen,
     'setting': SettingScreen,
     'explain': ExplainScreen,
-    'pause': PauseScreen
+    'pause': PauseScreen,
+    'ending_clear': ClearScreen
 }
 
 

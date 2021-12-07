@@ -115,3 +115,9 @@ PAUSE_CONTEXT = [
         'text': '   Your Score is'
     }
 ]
+
+ENDING_CONTEXT = [
+    {
+        'text': ' Press [SPACE] to show score!!'
+    }
+]

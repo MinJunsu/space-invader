@@ -12,8 +12,8 @@ class SettingScreen(Screen):
     def __init__(self, size, set_screen, return_screen):
         super(SettingScreen, self).__init__(size, set_screen, return_screen)
         self.index = 0
-        self.speed_val = 10
-        self.volume_val = 10
+        self.speed_val = 100
+        self.volume_val = 100
 
     def draw(self):
         # Draw Title
@@ -21,7 +21,7 @@ class SettingScreen(Screen):
         self.blit(title, (640 // 2 - title.get_width() // 2, 100))
 
         # Draw Return Home
-        home = self.small_font.render('Home [BACKSPACE]', 1, (255, 255, 255))
+        home = self.small_font.render('Return [BACKSPACE]', 1, (255, 255, 255))
         self.blit(home, (10, 10))
 
         # Draw Settings
@@ -36,9 +36,9 @@ class SettingScreen(Screen):
 
             if element['key'] == '|':
                 if idx == 2:
-                    key = self.small_font.render(element['key'] * self.speed_val, 1, (0, 255, 0))
+                    key = self.small_font.render(str(self.speed_val) + " " + element['key'] * (self.speed_val/5), 1, (0, 255, 0))
                 elif idx == 3:
-                    key = self.small_font.render(element['key'] * self.volume_val, 1, (0, 255, 0))
+                    key = self.small_font.render(str(self.volume_val) + " " + element['key'] * (self.volume_val/5), 1, (0, 255, 0))
             else:
                 key = self.small_font.render(element['key'], 1, (0, 255, 0))
 
@@ -74,24 +74,29 @@ class SettingScreen(Screen):
 
             elif key[K_z]:
                 key_position = (430, 200 + self.index * 40)
-                key = self.small_font.render("|" * 20, True, (0, 0, 0))
-                self.blit(key, key_position)
-
                 if self.index == 2:
-                    if self.speed_val > 1:
-                        self.speed_val -= 1
+                    if self.speed_val > 30:
+                        key = self.small_font.render(str(self.speed_val) + " " + "|" * 20, True, (0, 0, 0))
+                        self.speed_val -= 5
+                        self.blit(key, key_position)
                 elif self.index == 3:
-                    if self.volume_val > 1:
-                        self.volume_val -= 1
+                    if self.volume_val > 30:
+                        key = self.small_font.render(str(self.volume_val) + " " + "|" * 20, True, (0, 0, 0))
+                        self.volume_val -= 5
+                        self.blit(key, key_position)
 
             elif key[K_x]:
+                key_position = (430, 200 + self.index * 40)
                 if self.index == 2:
-                    if self.speed_val < 20:
-                        self.speed_val += 1
-
+                    if self.speed_val < 100:
+                        key = self.small_font.render(str(self.speed_val) + " " + "|" * 20, True, (0, 0, 0))
+                        self.speed_val += 5
+                        self.blit(key, key_position)
                 elif self.index == 3:
-                    if self.volume_val < 20:
-                        self.volume_val += 1
+                    if self.volume_val < 100:
+                        key = self.small_font.render(str(self.volume_val) + " " + "|" * 20, True, (0, 0, 0))
+                        self.volume_val += 5
+                        self.blit(key, key_position)
 
             elif key[K_BACKSPACE]:
-                self.set_screen('main')
+                self.return_screen()
