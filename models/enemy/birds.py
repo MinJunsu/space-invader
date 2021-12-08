@@ -81,17 +81,23 @@ class OldBird(Bird):
 
 class CrazyBird(Bird):
     DEFAULT_COUNT = 1
+    COOLDOWN = 500
+    HEALTH_POINT = 15
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        super(CrazyBird, self).__init__(pos_x, pos_y)
         self.speed = 8
-        self.health_point = 15
+        self.health_point = self.HEALTH_POINT
         self.set_images('crazy_bird')
+        self.birds = [SmileBird, PoisonedBird, CircledBird, OldBird]
         self.children = Group()
+        self.is_boss = True
+        self.coll_down_count = 0
         self.score = 500
 
     def update(self, *args, **kwargs) -> None:
-        super().update()
+        self.coll_down_count += 1
+        super(CrazyBird, self).update()
         self.children.update()
 
     def move(self) -> None:

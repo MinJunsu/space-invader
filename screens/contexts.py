@@ -50,7 +50,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'explain'
+        'action': 'score'
     },
     {
         'text': 'SUMMARY',
@@ -126,6 +126,16 @@ SUMMARY_CONTEXT = [
     },
     {
         'text': 'Let\'s go get revenge on the alien planet.'
+    }
+]
+SCORE_CONTEXT = [
+    {
+        'name': 'Best Score',
+        'key': '2000'
+    },
+    {
+        'name': 'last score',
+        'key': '1920'
     }
 ]
 
