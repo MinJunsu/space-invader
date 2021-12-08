@@ -106,7 +106,7 @@ class BackGroundManager:
         background = BackGround()
         if self.level == 0:
             self.background.empty()
-            background.set_images('stage1')
+            background.set_images('stage3')
             self.background.add(background)
 
         elif self.level == 1:

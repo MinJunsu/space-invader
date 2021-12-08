@@ -17,8 +17,12 @@ class ExplainScreen(Screen):
         self.sound = self.set_sound('explain.wav')
         self.sound.play(-1)
         self.background = GroupSingle()
+        background = BackGround()
+        background.set_images('explain')
+        self.background.add(background)
 
     def draw(self):
+        self.background.draw(self)
         # Draw Title
         title = self.big_font.render(f"STAGE {self.context['stage']}", 1, (255, 255, 255))
         self.blit(title, (640 // 2 - title.get_width() // 2, 50))
