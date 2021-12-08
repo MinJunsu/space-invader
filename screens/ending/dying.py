@@ -5,7 +5,7 @@ from screens import TextBaseScreen, EXPLAIN_CONTEXT
 
 
 class DyingScreen(TextBaseScreen):
-    CONTEXT     = EXPLAIN_CONTEXT['dying']
+    CONTEXT = EXPLAIN_CONTEXT['dying']
 
     def __init__(self, size, set_screen, return_screen):
         super().__init__(size, set_screen, return_screen, 'dying')
