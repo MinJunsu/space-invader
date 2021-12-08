@@ -10,7 +10,7 @@ class ScrollBackground:
 
         self.bgY2 = - self.rectBGimg.height
 
-        self.moving_speed = moving_speed
+        self.moving_speed = moving_s
 
     def update(self):
         self.bgY1 += self.moving_speed
