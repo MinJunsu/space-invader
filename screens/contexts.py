@@ -50,7 +50,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'explain'
+        'action': 'score'
     },
     {
         'text': 'SUMMARY',
