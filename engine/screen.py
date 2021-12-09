@@ -1,4 +1,4 @@
-from screens.games.explain import ExplainScreen
+# from screens.games.explain import ExplainScreen
 from screens.ending.score import ScoreScreen
 from screens.games.pause import PauseScreen
 from screens.ending.ending import ClearScreen
@@ -7,34 +7,25 @@ from screens.loading.help import HelpScreen
 from screens.games.base import GameScreen
 from screens.loading.setting import SettingScreen
 from screens.loading.summary import SummaryScreen
-# from screens.games.explain import BeginFirstScreen, BeginSecondScreen, BeginThirdScreen
-# from screens.ending.dying import DyingScreen
-
+from screens.games.explain import BeginFirstScreen, BeginSecondScreen, BeginThirdScreen
+from screens.ending.dying import DyingScreen
 
 SCREEN = {
     'main': LoadingScreen,
     'game': GameScreen,
     'help': HelpScreen,
     'setting': SettingScreen,
-    'explain': ExplainScreen,
+    # 'explain': ExplainScreen,
     'summary': SummaryScreen,
     'score': ScoreScreen,
     'pause': PauseScreen,
-    'ending_clear': ClearScreen
+    'ending_clear': ClearScreen,
+    'begin_first': BeginFirstScreen,
+    'begin_second': BeginSecondScreen,
+    'begin_third': BeginThirdScreen,
+    'dying': DyingScreen
 }
 
-
-# SCREEN = {
-#     'main': LoadingScreen,
-#     'game': GameScreen,
-#     'help': HelpScreen,
-#     'setting': SettingScreen,
-#     'begin_first': BeginFirstScreen,
-#     'begin_second': BeginSecondScreen,
-#     'begin_third': BeginThirdScreen,
-#     'summary': SummaryScreen,
-#     'dying': DyingScreen
-# }
 
 WIDTH = 640
 HEIGHT = 480

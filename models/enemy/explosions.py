@@ -11,12 +11,30 @@ class BirdExplosion(Explosion):
         self.set_sound('birds_death.wav')
 
 
+class BirdBossExplosion(Explosion):
+    def __init__(self, pos_x, pos_y):
+        super().__init__()
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.set_images('birdsboss')
+        self.set_sound('birds_death.wav')
+
+
 class SpaceShipExplosion(Explosion):
     def __init__(self, pos_x, pos_y):
         super().__init__()
         self.pos_x = pos_x
         self.pos_y = pos_y
-        self.set_images('birds')
+        self.set_images('spaceships')
+        self.set_sound('spaceships_death.wav')
+
+
+class SpaceShipBossExplosion(Explosion):
+    def __init__(self, pos_x, pos_y):
+        super().__init__()
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.set_images('spacesshipsboss')
         self.set_sound('spaceships_death.wav')
 
 

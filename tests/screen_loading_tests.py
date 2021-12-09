@@ -19,4 +19,4 @@ class LoadingScreenTest(TestCase):
     def test_loading_screen_attribute(self):
         self.assertEqual(self.loading_screen.get_width(), 640)
         self.assertEqual(self.loading_screen.get_height(), 480)
-        self.assertEqual(self.loading_screen.index, 1)
+        self.assertEqual(self.loading_screen.index, 0)

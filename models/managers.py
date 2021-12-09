@@ -11,6 +11,7 @@ from models.enemy import (
 
 
 class PlayerManager:
+
     def __init__(self):
         self.level = 0
         self.character = GroupSingle()
@@ -30,6 +31,7 @@ class PlayerManager:
         # elif self.level == 2:
         #     self.character.empty()
         #     self.character.add(PlanePlayer(self.health_point))
+
         self.level += 1
 
     def collide(self, enemies) -> None:
@@ -111,10 +113,10 @@ class BackGroundManager:
             background.set_images('stage2')
             self.background.add(background)
 
-        # elif self.level == 2:
-        #     self.background.empty()
-        #     background.set_images('stage3')
-        #     self.background.add(background)
+        elif self.level == 2:
+            self.background.empty()
+            background.set_images('stage3')
+            self.background.add(background)
 
         self.level += 1
 
@@ -123,3 +125,8 @@ class BackGroundManager:
 
     def update(self):
         self.background.update()
+
+
+class DyingEffectManger:
+    def __init__(self):
+        self.dying_effect = GroupSingle()

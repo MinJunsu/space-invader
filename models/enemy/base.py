@@ -43,7 +43,7 @@ class Enemy(Entity):
             self.health_point -= 1
             if self.health_point == 0:
                 self.kill()
-                return self.explosion(self.rect.x + (self.image.get_width() / 2), self.rect.y + self.image.get_height() / 2)
+                return self.explosion(self.rect.x, self.rect.y)
 
     @classmethod
     def create(cls, func):

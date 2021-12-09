@@ -4,6 +4,9 @@ import os
 from pygame import Surface, image
 from pygame.font import Font
 from pygame.mixer import Sound
+from pygame.sprite import GroupSingle
+
+from models import BackGround
 
 
 class Screen(Surface):
@@ -42,3 +45,49 @@ class Screen(Surface):
         Implement When you get event in Surface
         """
 
+
+class TextBaseScreen(Screen):
+    CONTEXT = None
+
+    def __init__(self, size, set_screen, return_screen, category):
+        super().__init__(size, set_screen, return_screen)
+        self.count = 0
+        self.index = 0
+        self.big_font = self.get_font('elice.ttf', 50)
+        self.middle_font = self.get_font('elice.ttf', 20)
+        self.font = self.get_font('elice.ttf', 15)
+        self.context = self.CONTEXT.get(category)
+        self.sound = self.set_sound('explain.wav')
+        self.sound.play(-1)
+        self.background = GroupSingle()
+        self.category = category
+
+    def draw(self):
+        # Draw Title
+        title = self.big_font.render(f"STAGE {self.context['stage']}", 1, (255, 255, 255))
+        self.blit(title, (640 // 2 - title.get_width() // 2, 50))
+
+        for idx, element in enumerate(self.context['text']):
+            self.count += 1
+            if self.index > idx:
+                text = self.font.render(element, 1, (255, 255, 255))
+                position = (280, 130 + 35 * idx)
+                self.blit(text, position)
+
+            elif self.index == idx:
+                text = self.font.render(element[0:self.count], 1, (255, 255, 255))
+                position = (280, 130 + 35 * idx)
+                self.blit(text, position)
+                if element[0:self.count] == element:
+                    self.index += 1
+                    self.count = 0
+
+        self.update()
+
+    def set_background(self, name):
+        background = BackGround()
+        background.set_images(name)
+        self.background.add(background)
+
+    def update(self):
+        self.background.update()
