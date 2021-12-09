@@ -22,7 +22,6 @@ class SmallFlyAlien(Alien):
         # FIXME: Weapon 구현 후 넣기
         self.weapon = None
 
-
 class BigFlyAlien(Alien):
     DEFAULT_COUNT = 10
 

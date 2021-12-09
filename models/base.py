@@ -29,6 +29,7 @@ class Entity(Sprite):
         self.pos_x = 0
         self.pos_y = 0
         self.health_point = 1
+
         self.weapon = None
         self.weapons = None
         self.is_reverse = False

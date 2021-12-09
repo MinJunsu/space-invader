@@ -1,5 +1,6 @@
 from pygame.constants import KEYDOWN, K_SPACE
 from pygame.key import get_pressed
+
 from pygame.sprite import GroupSingle
 
 from models import BackGround
@@ -44,6 +45,7 @@ class ExplainScreen(Screen):
 
         start = self.small_font.render("Press [SPACE] to play Game!!", 1, (255, 255, 255))
         self.blit(start, (640 // 2 - start.get_width() // 2, 450))
+
         self.update()
 
     def update(self):

@@ -1,5 +1,4 @@
 from random import randint
-
 from pygame.sprite import Group
 
 from .base import Enemy
