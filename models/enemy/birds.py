@@ -1,5 +1,5 @@
-from random import choice, randint
 import os
+from random import choice, randint
 
 from pygame.sprite import Group
 from pygame import image
@@ -12,7 +12,7 @@ class Bird(Enemy):
     DEFAULT_COUNT = 0
 
     def __init__(self, pos_x, pos_y):
-        super().__init__('birds')
+        super(Bird, self).__init__('birds')
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.health_point = 1
@@ -40,20 +40,19 @@ class SmileBird(Bird):
     # DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        super(SmileBird, self).__init__(pos_x, pos_y)
         self.speed = 4
-        self.set_images('smile_bird')
+        self.set_images('test1')
         self.score = 10
 
 
 class PoisonedBird(Bird):
     DEFAULT_COUNT = 8
     # DEFAULT_COUNT = 1
-
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        super(PoisonedBird, self).__init__(pos_x, pos_y)
         self.speed = 6
-        self.set_images('poisoned_bird')
+        self.set_images('test2')
         self.score = 30
 
 
@@ -62,7 +61,7 @@ class CircledBird(Bird):
     # DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        super(CircledBird, self).__init__(pos_x, pos_y)
         self.speed = 6
         self.set_images('circled_bird')
         self.score = 50
@@ -73,7 +72,7 @@ class OldBird(Bird):
     # DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        super(OldBird, self).__init__(pos_x, pos_y)
         self.speed = 2
         self.set_images('old_bird')
         self.score = 60
@@ -81,17 +80,23 @@ class OldBird(Bird):
 
 class CrazyBird(Bird):
     DEFAULT_COUNT = 1
+    COOLDOWN = 500
+    HEALTH_POINT = 15
 
     def __init__(self, pos_x, pos_y):
-        super().__init__(pos_x, pos_y)
+        super(CrazyBird, self).__init__(pos_x, pos_y)
         self.speed = 8
-        self.health_point = 15
+        self.health_point = self.HEALTH_POINT
         self.set_images('crazy_bird')
+        self.birds = [SmileBird, PoisonedBird, CircledBird, OldBird]
         self.children = Group()
+        self.is_boss = True
+        self.coll_down_count = 0
         self.score = 500
 
     def update(self, *args, **kwargs) -> None:
-        super().update()
+        self.coll_down_count += 1
+        super(CrazyBird, self).update()
         self.children.update()
 
     def move(self) -> None:
