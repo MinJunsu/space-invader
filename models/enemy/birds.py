@@ -36,29 +36,30 @@ class Bird(Enemy):
 
 
 class SmileBird(Bird):
-    DEFAULT_COUNT = 5
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 5
+    DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super(SmileBird, self).__init__(pos_x, pos_y)
         self.speed = 4
-        self.set_images('test1')
+        self.set_images('smile_bird')
         self.score = 10
 
 
 class PoisonedBird(Bird):
-    DEFAULT_COUNT = 8
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 8
+    DEFAULT_COUNT = 1
+
     def __init__(self, pos_x, pos_y):
         super(PoisonedBird, self).__init__(pos_x, pos_y)
         self.speed = 6
-        self.set_images('test2')
+        self.set_images('poisoned_bird')
         self.score = 30
 
 
 class CircledBird(Bird):
-    DEFAULT_COUNT = 10
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 10
+    DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super(CircledBird, self).__init__(pos_x, pos_y)
@@ -68,8 +69,8 @@ class CircledBird(Bird):
 
 
 class OldBird(Bird):
-    DEFAULT_COUNT = 15
-    # DEFAULT_COUNT = 1
+    # DEFAULT_COUNT = 15
+    DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super(OldBird, self).__init__(pos_x, pos_y)
