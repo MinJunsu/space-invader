@@ -141,7 +141,6 @@ def game(isMouse=False):
 
             if level % 5 == 0:
                 enemies.append(Enemy(WIDTH / 2, -1200, chapter, 4))  # boss 구현 후 넣어주기
-
             else:
                 for i in [8, 4, 2, 1]:
                     if appearance[level % 5 - 1] & i:

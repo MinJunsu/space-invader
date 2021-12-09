@@ -21,26 +21,23 @@ HELP_CONTEXT = [
     }
 ]
 
+
 SETTING_CONTEXT = [
     {
-        'name': 'MOVE LEFT (PRESS KEY TO CHANGE)',
-        'key': 'A'
+        'name': 'SPEED UP',
+        'key': '<'
     },
     {
-        'name': 'MOVE RIGHT (PRESS KEY TO CHANGE)',
-        'key': 'D'
-    },
-    {
-        'name': 'SPEED (PRESS X OR Z TO CHANGE)',
-        'key': '|'
-    },
-    {
-        'name': 'VOLUME (PRESS X OR Z TO CHANGE)',
-        'key': '|'
+        'name': 'SPEED DOWN',
+        'key': '>'
     },
     {
         'name': 'MUTE AUDIO',
         'key': 'M'
+    },
+    {
+        'name': 'VOLUME UP/DOWN',
+        'key': '+/-'
     }
 ]
 
@@ -51,7 +48,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'explain'
+        'action': 'score'
     },
     {
         'text': 'SUMMARY',
@@ -107,17 +104,35 @@ EXPLAIN_CONTEXT = {
     ]
 }
 
-PAUSE_CONTEXT = [
+SUMMARY_CONTEXT = [
+# 외계행성의 침공으로 지구 생명체들이 위험하다
+# 조종당하는 지구생명체를 무찌르고
+# 지구를 둘러싼 함대를 격파한 후
+# 외계 행성에 복수를 하러 가자
     {
-        'text': ' Press [ESC] to return Game!!'
+        'text': 'Life on Earth is in danger due ',
     },
     {
-        'text': '   Your Score is'
+        'text': 'to the invasion of extraterrestrial planets',
+    },
+    {
+        'text': 'It defeats the controlled life on Earth',
+    },
+    {
+        'text': 'After defeating the fleet surrounding the earth,',
+    },
+    {
+        'text': 'Let\'s go get revenge on the alien planet.'
     }
 ]
 
-ENDING_CONTEXT = [
+SCORE_CONTEXT = [
     {
-        'text': ' Press [SPACE] to show score!!'
+        'name': 'Best Score',
+        'key': '2000'
+    },
+    {
+        'name': 'last score',
+        'key': '1920'
     }
 ]

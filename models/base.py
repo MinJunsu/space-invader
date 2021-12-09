@@ -5,6 +5,7 @@ from pygame import image
 from pygame.sprite import Sprite, Group, spritecollide
 from pygame.mixer import Sound
 
+from engine.sound import SoundManager
 
 WIDTH = 640
 HEIGHT = 480
@@ -28,24 +29,18 @@ class Entity(Sprite):
         self.pos_x = 0
         self.pos_y = 0
         self.health_point = 1
-        self.is_boss = False
+
         self.weapon = None
         self.weapons = None
         self.is_reverse = False
+        self.sound_manager = SoundManager()
 
     def set_sound(self, name):
-        self.sound = Sound(os.path.join(self.SOUND_ROOT, name))
+        self.sound = self.sound_manager.get(name)
 
     def set_images(self, image_path) -> None:
-        if self.is_reverse:
-            os.chdir(os.path.join(Entity.IMAGE_ROOT, os.path.join(self.name, f'{image_path}_left')))
-            self.lefts = [image.load(element) for element in sorted(os.listdir())]
-            os.chdir(os.path.join(Entity.IMAGE_ROOT, os.path.join(self.name, f'{image_path}_right')))
-            self.rights = [image.load(element) for element in sorted(os.listdir())]
-            self.images = self.rights
-        else:
-            os.chdir(os.path.join(Entity.IMAGE_ROOT, os.path.join(self.name, f'{image_path}')))
-            self.images = [image.load(element) for element in sorted(os.listdir())]
+        os.chdir(os.path.join(Entity.IMAGE_ROOT, os.path.join(self.name, f'{image_path}')))
+        self.images = [image.load(element) for element in sorted(os.listdir())]
         self.image = self.images[self.image_index]
         self.rect = self.image.get_rect()
         if self.pos_x or self.pos_y:
@@ -81,38 +76,32 @@ class Entity(Sprite):
 
 class BackGround(Entity):
     def __init__(self):
-        super(BackGround, self).__init__('background')
+        super().__init__('background')
 
     def set_sound(self, name):
-        super(Bullet, self).set_sound(name)
-        self.sound.play()
-
-    def set_images(self, image_path) -> None:
-        os.chdir(os.path.join(Entity.IMAGE_ROOT, os.path.join(self.name, f'{image_path}')))
-        self.images = [image.load(element) for element in sorted(os.listdir())]
-        self.image = self.images[self.image_index]
-        self.rect = self.image.get_rect()
-        if self.pos_x or self.pos_y:
-            self.rect.x, self.rect.y = self.pos_x, self.pos_y
+        super().set_sound(name)
+        self.sound.play(-1)
 
 
 class Bullet(Entity):
     def __init__(self, pos_x, pos_y):
-        super(Bullet, self).__init__('bullets')
+        super().__init__('bullets')
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.sounds = SoundManager()
 
     def set_sound(self, name):
-        super(Bullet, self).set_sound(name)
+        super().set_sound(name)
         self.sound.play()
 
 
 class Explosion(Entity):
     def __init__(self):
-        super(Explosion, self).__init__('explosion')
+        super().__init__('explosion')
+        self.sounds = SoundManager()
 
     def set_sound(self, name):
-        super(Explosion, self).set_sound(name)
+        super().set_sound(name)
         self.sound.play()
 
     def update(self, *args, **kwargs) -> None:

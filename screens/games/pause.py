@@ -52,7 +52,6 @@ class PauseScreen(Screen):
     def get_event(self, event):
         if event.type == KEYDOWN:
             key = get_pressed()
-
             if key[K_ESCAPE]:
                 self.return_screen()
 

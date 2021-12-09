@@ -6,6 +6,9 @@ from .games.explain import ExplainScreen
 from .games.pause import PauseScreen
 from .ending.ending import ClearScreen
 
+WIDTH = 640
+HEIGHT = 480
+
 SCREEN = {
     'main': LoadingScreen,
     'game': GameScreen,
@@ -15,11 +18,6 @@ SCREEN = {
     'pause': PauseScreen,
     'ending_clear': ClearScreen
 }
-
-
-WIDTH = 640
-HEIGHT = 480
-
 
 class ScreenManager:
     def __init__(self):

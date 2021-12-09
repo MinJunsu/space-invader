@@ -1,6 +1,9 @@
 from pygame.constants import KEYDOWN, K_SPACE
 from pygame.key import get_pressed
 
+from pygame.sprite import GroupSingle
+
+from models import BackGround
 from screens import Screen, EXPLAIN_CONTEXT
 
 
@@ -14,6 +17,7 @@ class ExplainScreen(Screen):
         self.context = EXPLAIN_CONTEXT.get(category)[num]
         self.sound = self.set_sound('explain.wav')
         self.sound.play(-1)
+        self.background = GroupSingle()
 
     def draw(self):
         # Draw Title
@@ -41,6 +45,11 @@ class ExplainScreen(Screen):
 
         start = self.small_font.render("Press [SPACE] to play Game!!", 1, (255, 255, 255))
         self.blit(start, (640 // 2 - start.get_width() // 2, 450))
+
+        self.update()
+
+    def update(self):
+        self.background.update()
 
     def get_event(self, event):
         if event.type == KEYDOWN:

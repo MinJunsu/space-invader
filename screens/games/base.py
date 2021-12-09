@@ -4,13 +4,13 @@ from pygame.key import get_pressed
 from models.managers import PlayerManager, EnemyManager, BackGroundManager
 from screens.base import Screen
 
-
 class GameScreen(Screen):
     def __init__(self, size, set_screen, return_screen):
         super(GameScreen, self).__init__(size, set_screen, return_screen)
         self.level = 0
         self.image = dict()
         self.load_image()
+
         self.player = PlayerManager()
         self.enemies = EnemyManager()
         self.background = BackGroundManager()
@@ -24,7 +24,7 @@ class GameScreen(Screen):
             self.set_screen('ending_clear')
 
         if self.player.health_point < 0:
-            self.set_screen('ending_fail')
+            self.set_screen('ending_fail') # fail 부분 스크린 없애서 재훈님 screen 이랑 연결해야함.
 
         if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
             self.player.upgrade()
@@ -53,7 +53,6 @@ class GameScreen(Screen):
         self.enemies.draw(self)
         self.setting()
         self.player.draw(self)
-
 
     def setting(self):
         for i in range(self.player.health_point):
