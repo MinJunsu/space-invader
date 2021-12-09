@@ -8,7 +8,10 @@ class SummaryScreen(Screen):
     CONTEXT = SUMMARY_CONTEXT
 
     def __init__(self, size, set_screen, return_screen):
-        super(SummaryScreen, self).__init__(size, set_screen, return_screen)
+        super().__init__(size, set_screen, return_screen)
+        self.big_font = self.get_font('elice.ttf', 30)
+        self.middle_font = self.get_font('elice.ttf', 30)
+        self.small_font = self.get_font('elice.ttf', 20)
 
     def draw(self):
         # Draw Title
@@ -22,7 +25,7 @@ class SummaryScreen(Screen):
         # Draw Summary
         for idx, element in enumerate(self.CONTEXT):
             text = self.middle_font.render(element['text'], 1, (255, 255, 255))
-            text_position = ((640 - text.get_width())//2, 180 + idx * 40)
+            text_position = ((640 - text.get_width())//2, 180 + idx * 60)
             self.blit(text, text_position)
 
     def get_event(self, event):

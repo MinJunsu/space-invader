@@ -26,6 +26,7 @@ class SettingScreen(Screen):
 
         # Draw Settings
         for idx, element in enumerate(self.CONTEXT):
+
             name = self.small_font.render(element['name'], 1, (255, 255, 255))
             key = self.small_font.render(element['key'], 1, (255, 0, 0))
 

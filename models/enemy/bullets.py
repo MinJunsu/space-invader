@@ -33,3 +33,11 @@ class CircledSpaceShipBullet(EnemyBullet):
         self.speed = 7
         self.set_images('circled_spaceship_bullet')
         self.set_sound('boss_spaceship_bullet.wav')
+
+
+class AlienBullet(EnemyBullet):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(pos_x, pos_y)
+        self.speed = 5
+        self.set_images('alien_red_bullet')
+        self.set_sound('boss_spaceship_bullet.wav')

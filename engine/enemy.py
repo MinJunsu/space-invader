@@ -2,15 +2,16 @@ from pygame.sprite import Group
 
 from models.enemy import (
     SmileBird, PoisonedBird, CircledBird, OldBird, CrazyBird,
-    BlueSpaceShip, RedSpaceShip, GreenSpaceShip, CircledSpaceShip
+    BlueSpaceShip, RedSpaceShip, GreenSpaceShip, GreenSpaceShip, CircledSpaceShip,
+    RedEyeAlien, GreenSomAlien, GreenEyeAlien, GreenOctorAlien, BossAlien
 )
 
 
 class EnemyManager:
     ENEMIES = [
         SmileBird, PoisonedBird, CircledBird, OldBird, CrazyBird,
-        BlueSpaceShip, RedSpaceShip, GreenSpaceShip,
-        CircledSpaceShip
+        BlueSpaceShip, RedSpaceShip, GreenSpaceShip, GreenSpaceShip, CircledSpaceShip,
+        RedEyeAlien, GreenSomAlien, GreenEyeAlien, GreenOctorAlien, BossAlien
     ]
 
     def __init__(self):
