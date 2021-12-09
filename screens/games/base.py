@@ -4,6 +4,7 @@ from pygame.key import get_pressed
 from models.managers import PlayerManager, EnemyManager, BackGroundManager
 from screens.base import Screen
 
+
 class GameScreen(Screen):
     def __init__(self, size, set_screen, return_screen):
         super(GameScreen, self).__init__(size, set_screen, return_screen)
@@ -20,22 +21,32 @@ class GameScreen(Screen):
         self.image['trophy'] = self.get_image('trophy.png')
 
     def run(self):
-        if self.level == 2:
-            self.set_screen('ending_clear')
-
-        if self.player.health_point < 0:
-            self.set_screen('ending_fail') # fail 부분 스크린 없애서 재훈님 screen 이랑 연결해야함.
-
-        if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
+        # Initialize
+        if self.level == 0 and len(self.enemies.enemy) == 0:
             self.player.upgrade()
             self.background.upgrade()
-            self.set_screen('explain')
-
-        if len(self.enemies.enemy) == 0:
             self.enemies.upgrade()
-            self.level += 1
 
         self.play()
+
+        # Explosion 이 다 나온 경우
+        if len(self.enemies.collision) == 0:
+            if self.player.health_point < 0:
+                self.set_screen('ending_fail')
+
+            if self.level > 15:
+                self.set_screen('ending_clear')
+
+            if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
+                self.player.upgrade()
+                self.background.upgrade()
+                self.set_screen('explain')
+
+            if len(self.enemies.enemy) == 0:
+                self.enemies.upgrade()
+                self.level += 1
+
+
 
     def play(self):
         self.move()
