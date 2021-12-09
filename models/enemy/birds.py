@@ -41,7 +41,7 @@ class SmileBird(Bird):
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
-        self.speed = 4
+        self.speed = 5
         self.set_images('smile_bird')
         self.score = 10
 
