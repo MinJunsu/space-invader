@@ -1,4 +1,4 @@
-from pygame.constants import KEYDOWN, K_BACKSPACE, K_ESCAPE
+from pygame.constants import KEYDOWN, K_BACKSPACE, K_ESCAPE, K_p
 from pygame.key import get_pressed
 from pygame.time import wait
 
@@ -13,7 +13,8 @@ class GameScreen(Screen):
         self.level = 0
         self.image = dict()
         self.load_image()
-
+        self.is_pause = False
+        self.pause = PauseScreen((size[0] // 2, size[1] // 2), set_screen, return_screen)
         self.player = PlayerManager()
         self.enemies = EnemyManager()
         self.background = BackGroundManager()
@@ -23,38 +24,40 @@ class GameScreen(Screen):
         self.image['trophy'] = self.get_image('trophy.png')
 
     def run(self):
-        # Initialize
-        if self.level == 0 and len(self.enemies.enemy) == 0:
+
+        if self.player.health_point == 0:
+            self.set_screen('dying')
+            # self.set_screen('dying')
+
+        if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
             self.player.upgrade()
             self.background.upgrade()
-            self.enemies.upgrade()
 
+            if self.level // 5 == 0:
+                self.set_screen('begin_first')
+            elif self.level // 5 == 1:
+                self.set_screen('begin_second')
+            elif self.level // 5 == 2:
+                self.set_screen('begin_third')
+            else:
+                # TODO: stage3까지 완성되면 clear effect로 변경
+                self.set_screen('dying')
+
+        if len(self.enemies.enemy) == 0:
+            # if self.player.dying() or self.level == 0:
+            self.enemies.upgrade()
+            self.level += 1
         self.play()
 
-        # Explosion 이 다 나온 경우
-        if len(self.enemies.collision) == 0:
-            if self.player.health_point < 0:
-                self.set_screen('ending_fail')
-
-            if self.level > 15:
-                self.set_screen('ending_clear')
-
-            if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
-                self.player.upgrade()
-                self.background.upgrade()
-                self.set_screen('explain')
-
-            if len(self.enemies.enemy) == 0:
-                self.enemies.upgrade()
-                self.level += 1
-
-
-
     def play(self):
-        self.move()
-        self.collide()
-        self.update()
         self.draw()
+        if self.is_pause:
+            self.pause.draw()
+            # self.blit(self.pause, (300, 100))
+        else:
+            self.move()
+            self.collide()
+            self.update()
 
     def collide(self):
         self.player.collide(self.enemies.enemy)
@@ -90,8 +93,10 @@ class GameScreen(Screen):
             key = get_pressed()
 
             if key[K_BACKSPACE]:
-                self.player.health_point -= 1
+                self.enemies.enemy.empty()
 
-            elif key[K_ESCAPE]:
-                self.set_screen('pause')
+            if key[K_ESCAPE] or key[K_p]:
+                self.is_pause = not self.is_pause
 
+        if self.is_pause:
+            self.pause.get_event(event)

@@ -1,4 +1,4 @@
-from screens.games.explain import ExplainScreen
+# from screens.games.explain import ExplainScreen
 from screens.ending.score import ScoreScreen
 from screens.games.pause import PauseScreen
 from screens.ending.ending import ClearScreen
@@ -15,7 +15,7 @@ SCREEN = {
     'game': GameScreen,
     'help': HelpScreen,
     'setting': SettingScreen,
-    'explain': ExplainScreen,
+    # 'explain': ExplainScreen,
     'summary': SummaryScreen,
     'score': ScoreScreen,
     'pause': PauseScreen,

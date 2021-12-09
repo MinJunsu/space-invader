@@ -14,7 +14,7 @@ class SpaceShip(Enemy):
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.health_point = 1
-        self.explosion = BirdExplosion
+        self.explosion = SpaceShipExplosion
         self.weapon = None
         self.weapons = Group()
         self.cool_down_counter = 0
