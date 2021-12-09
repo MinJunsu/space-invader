@@ -22,8 +22,6 @@ HELP_CONTEXT = [
 ]
 
 
-
-
 SETTING_CONTEXT = [
     {
         'name': 'SPEED UP',
@@ -64,8 +62,6 @@ LOADING_CONTEXT = [
         'text': 'Help',
         'action': 'help',
     },
-
-
 ]
 
 EXPLAIN_CONTEXT = {
@@ -120,6 +116,7 @@ EXPLAIN_CONTEXT = {
         }
     ]
 }
+
 SUMMARY_CONTEXT = [
     {
         'text': '외계행성의 침공으로 지구 생명체들이 위험하다',
