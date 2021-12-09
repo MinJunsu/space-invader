@@ -1,3 +1,7 @@
+from screens.games.explain import ExplainScreen
+from screens.ending.score import ScoreScreen
+from screens.games.pause import PauseScreen
+from screens.ending.ending import ClearScreen
 from screens.loading.base import LoadingScreen
 from screens.loading.help import HelpScreen
 from screens.games.base import GameScreen
@@ -11,10 +15,14 @@ SCREEN = {
     'game': GameScreen,
     'help': HelpScreen,
     'setting': SettingScreen,
+    'explain': ExplainScreen,
+    'summary': SummaryScreen,
+    'score': ScoreScreen,
+    'pause': PauseScreen,
+    'ending_clear': ClearScreen,
     'begin_first': BeginFirstScreen,
     'begin_second': BeginSecondScreen,
     'begin_third': BeginThirdScreen,
-    'summary': SummaryScreen,
     'dying': DyingScreen
 }
 

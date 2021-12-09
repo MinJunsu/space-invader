@@ -1,3 +1,7 @@
+from pygame.key import get_pressed
+from pygame.constants import K_LEFT, K_RIGHT, K_SPACE
+from pygame.sprite import Group
+
 from .base import Player
 from .bullets import PlaneBullet, SpaceShipBullet
 

@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from pygame.constants import K_SPACE, K_UP, K_DOWN, QUIT, KEYDOWN
 from screens import LOADING_CONTEXT
-from screens.managers import ScreenManager
+from engine.screen import ScreenManager
 from screens import LOADING_CONTEXT
 import pygame
 
@@ -20,4 +20,3 @@ class LoadingScreenTest(TestCase):
         self.assertEqual(self.loading_screen.get_width(), 640)
         self.assertEqual(self.loading_screen.get_height(), 480)
         self.assertEqual(self.loading_screen.index, 0)
-

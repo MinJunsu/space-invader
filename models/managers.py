@@ -1,3 +1,5 @@
+import os
+
 from pygame.sprite import Group, GroupSingle
 
 from models import BackGround
@@ -15,12 +17,6 @@ class PlayerManager:
         self.character = GroupSingle()
         self.health_point = 5
         self.score = 0
-
-    def clear(self):
-        if self.character.sprite.rect.y > 0:
-            self.character.sprite.rect.y -= 15
-            return False
-        return True
 
     def upgrade(self):
         if self.level == 0:
@@ -45,6 +41,7 @@ class PlayerManager:
                     self.health_point -= 1
 
     def move(self):
+        print(self.score)
         self.character.sprite.move()
 
     def draw(self, surface):

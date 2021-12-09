@@ -50,7 +50,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'explain'
+        'action': 'score'
     },
     {
         'text': 'SUMMARY',
@@ -110,13 +110,6 @@ EXPLAIN_CONTEXT = {
             ]
         },
     ],
-    # 'dying': {
-    #     'stage': 'Ending',
-    #     'text': [
-    #         '지구를 지키지 못했다...',
-    #         '지구 생명체들은 모두 최면에 걸려 노예가 되었다...'
-    #     ]
-    # },
     'dying': {
         'stage': 'Ending',
         'text': [
@@ -159,5 +152,20 @@ SUMMARY_CONTEXT = [
 
     {
         'text': '외계 행성에 복수를 하러 가자!'
+    }
+]
+
+PAUSE_CONTEXT = [
+    {
+        'text': ' Press [ESC] to return Game!!'
+    },
+    {
+        'text': '   Your Score is'
+    }
+]
+
+ENDING_CONTEXT = [
+    {
+        'text': ' Press [SPACE] to show score!!'
     }
 ]

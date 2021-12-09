@@ -1,11 +1,11 @@
 from pygame.key import get_pressed
-from pygame.constants import K_LEFT, K_RIGHT, K_SPACE, K_UP, K_DOWN
+from pygame.constants import K_LEFT, K_RIGHT, K_SPACE
 from pygame.sprite import Group
 
-from models import Entity, Bullet, HEIGHT, WIDTH
+from models import Entity, Bullet
 
-HEIGHT = HEIGHT
-WIDTH = WIDTH
+HEIGHT = 640
+WIDTH = 480
 
 
 class Player(Entity):

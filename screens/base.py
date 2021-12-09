@@ -19,7 +19,7 @@ class Screen(Surface):
         super(Screen, self).__init__(size)
         self.font = self.get_font("edit_undo.ttf", 30)
         self.big_font = self.get_font("edit_undo.ttf", 40)
-        self.middle_font = self.get_font('elice.ttf', 20)
+        self.middle_font = self.get_font('edit_undo.ttf',25)
         self.small_font = self.get_font("edit_undo.ttf", 20)
         self.set_screen = set_screen
         self.return_screen = return_screen

@@ -1,5 +1,6 @@
 from utils import Singleton
 
+
 class GameTick(Singleton):
     def __init__(self):
         super().__init__()
