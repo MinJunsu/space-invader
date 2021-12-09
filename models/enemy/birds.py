@@ -36,8 +36,8 @@ class Bird(Enemy):
 
 
 class SmileBird(Bird):
-    # DEFAULT_COUNT = 5
-    DEFAULT_COUNT = 1
+    DEFAULT_COUNT = 5
+    # DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -47,8 +47,8 @@ class SmileBird(Bird):
 
 
 class PoisonedBird(Bird):
-    # DEFAULT_COUNT = 8
-    DEFAULT_COUNT = 1
+    DEFAULT_COUNT = 8
+    # DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -58,8 +58,8 @@ class PoisonedBird(Bird):
 
 
 class CircledBird(Bird):
-    # DEFAULT_COUNT = 10
-    DEFAULT_COUNT = 1
+    DEFAULT_COUNT = 10
+    # DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -69,8 +69,8 @@ class CircledBird(Bird):
 
 
 class OldBird(Bird):
-    # DEFAULT_COUNT = 15
-    DEFAULT_COUNT = 1
+    DEFAULT_COUNT = 15
+    # DEFAULT_COUNT = 1
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
