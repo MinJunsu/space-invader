@@ -1,4 +1,5 @@
 from random import randint
+
 from pygame.sprite import Group
 
 from .base import Enemy
@@ -31,7 +32,8 @@ class SpaceShip(Enemy):
 
 
 class BlueSpaceShip(SpaceShip):
-    DEFAULT_COUNT = 10
+    # DEFAULT_COUNT = 10
+    DEFAULT_COUNT = 1
     COOLDOWN = 70
 
     def __init__(self, pos_x, pos_y):
@@ -43,7 +45,8 @@ class BlueSpaceShip(SpaceShip):
 
 
 class RedSpaceShip(SpaceShip):
-    DEFAULT_COUNT = 10
+    # DEFAULT_COUNT = 10
+    DEFAULT_COUNT = 1
     COOLDOWN = 60
 
     def __init__(self, pos_x, pos_y):
@@ -55,7 +58,8 @@ class RedSpaceShip(SpaceShip):
 
 
 class GreenSpaceShip(SpaceShip):
-    DEFAULT_COUNT = 15
+    # DEFAULT_COUNT = 15
+    DEFAULT_COUNT = 1
     COOLDOWN = 50
 
     def __init__(self, pos_x, pos_y):
@@ -69,6 +73,7 @@ class GreenSpaceShip(SpaceShip):
 class CircledSpaceShip(SpaceShip):
     DEFAULT_COUNT = 1
     COOLDOWN = 10
+    HEALTH_POINT = 20
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
@@ -77,6 +82,8 @@ class CircledSpaceShip(SpaceShip):
         self.set_images('circled_ship')
         self.weapon = CircledSpaceShipBullet
         self.score = 1000
+        self.health_point = self.HEALTH_POINT
+        self.is_boss = True
 
     def attack(self) -> None:
         if self.cool_down_counter > self.COOLDOWN:
