@@ -40,7 +40,7 @@ class BlueSpaceShip(SpaceShip):
         self.speed = 5
         self.set_images('blue_ship')
         self.weapon = BlueSpaceShipBullet
-        score = 150
+        self.score = 150
 
 
 class RedSpaceShip(SpaceShip):

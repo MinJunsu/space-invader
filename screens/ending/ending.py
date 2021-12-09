@@ -3,15 +3,16 @@ from pygame.key import get_pressed
 
 from screens import Screen, ENDING_CONTEXT
 
-from pygame.sprite import Group, GroupSingle
+from pygame.sprite import GroupSingle
 from models import BackGround
+
 
 class ClearScreen(Screen):
     CONTEXT = ENDING_CONTEXT
 
     def __init__(self, size, set_screen, return_screen):
         super(ClearScreen, self).__init__(size, set_screen, return_screen)
-        self.background = Group()
+        self.background = GroupSingle()
         self.sound = self.set_sound('clear.mp3')
         self.sound.play()
         self.frame = 0

@@ -6,6 +6,7 @@ from screens import Screen, PAUSE_CONTEXT
 
 class PauseScreen(Screen):
     CONTEXT = PAUSE_CONTEXT
+
     def __init__(self, size, set_screen, return_screen):
         super(PauseScreen, self).__init__(size, set_screen, return_screen)
         self.speed_val = 0

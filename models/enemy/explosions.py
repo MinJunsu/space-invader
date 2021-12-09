@@ -25,5 +25,5 @@ class AlienExplosion(Explosion):
         super().__init__()
         self.pos_x = pos_x
         self.pos_y = pos_y
-        self.set_images('birds')
+        self.set_images('aliens')
         self.set_sound('aliens_death.wav')
