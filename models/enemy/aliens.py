@@ -85,6 +85,7 @@ class GreenOctorAlien(Alien):
 class BossAlien(Alien):
     DEFAULT_COUNT = 1
     COOLDOWN = 70
+    HEALTH_POINT = 30
 
     def __init__(self, pos_x, pos_y):
         super().__init__(pos_x, pos_y)
