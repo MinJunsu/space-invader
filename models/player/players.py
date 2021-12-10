@@ -29,3 +29,14 @@ class SpaceShipPlayer(Player):
         self.weapon = SpaceShipBullet
         self.is_horizontal_move = True
         self.set_images('spaceship')
+
+
+class AlienPlayer(Player):
+    COOLDOWN = 40
+
+    def __init__(self, health_point, score):
+        super().__init__(health_point, score)
+        self.speed = 18
+        self.weapon = SpaceShipBullet
+        self.is_horizontal_move = True
+        self.set_images('alien')
