@@ -20,10 +20,10 @@ class BackGroundManager:
             background.set_images('stage2')
             self.background.add(background)
 
-        # elif self.level == 2:
-        #     self.background.empty()
-        #     background.set_images('stage3')
-        #     self.background.add(background)
+        elif self.level == 2:
+            self.background.empty()
+            background.set_images('stage3')
+            self.background.add(background)
 
         self.level += 1
 

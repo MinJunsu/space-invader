@@ -1,6 +1,6 @@
 from pygame.sprite import Group, GroupSingle
 
-from models.player.players import PlanePlayer, SpaceShipPlayer
+from models.player.players import PlanePlayer, SpaceShipPlayer, AlienPlayer
 
 
 class PlayerManager:
@@ -25,10 +25,10 @@ class PlayerManager:
             self.character.empty()
             self.character.add(SpaceShipPlayer(self.health_point, self.score))
 
-        # # FIXME: Replace other Player
-        # elif self.level == 2:
-        #     self.character.empty()
-        #     self.character.add(PlanePlayer(self.health_point))
+        # FIXME: Replace other Player
+        elif self.level == 2:
+            self.character.empty()
+            self.character.add(AlienPlayer(self.health_point, self.score))
         self.level += 1
 
     def collide(self, enemies) -> None:

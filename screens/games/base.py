@@ -54,7 +54,6 @@ class GameScreen(Screen):
         self.draw()
         if self.is_pause:
             self.pause.draw()
-            # self.blit(self.pause, (300, 100))
         else:
             self.move()
             self.collide()
@@ -65,7 +64,6 @@ class GameScreen(Screen):
         self.enemies.collide(self.player.character)
 
     def draw(self):
-        # TODO: 게임 백그라운드 배경 이미지 그리기
         self.background.draw(self)
         self.enemies.draw(self)
         self.setting()
@@ -103,7 +101,7 @@ class GameScreen(Screen):
                 self.enemies.enemy.empty()
 
             if key[K_ESCAPE] or key[K_p]:
-                self.is_pause = not self.is_pause
+                self.set_screen('pause')
 
         if self.is_pause:
             self.pause.get_event(event)
