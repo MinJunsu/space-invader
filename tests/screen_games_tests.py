@@ -1,7 +1,9 @@
 from unittest import TestCase
 
-from models.managers import PlayerManager, EnemyManager, BackGroundManager
-from screens.managers import ScreenManager
+from engine.player import PlayerManager
+from engine.enemy import EnemyManager
+from engine.background import BackGroundManager
+from engine.screen import ScreenManager
 
 import pygame
 
