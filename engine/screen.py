@@ -15,7 +15,6 @@ SCREEN = {
     'game': GameScreen,
     'help': HelpScreen,
     'setting': SettingScreen,
-    # 'explain': ExplainScreen,
     'summary': SummaryScreen,
     'score': ScoreScreen,
     'pause': PauseScreen,

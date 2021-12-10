@@ -1,8 +1,10 @@
 from pygame.constants import KEYDOWN, K_BACKSPACE, K_ESCAPE, K_p
 from pygame.key import get_pressed
-from pygame.time import wait
+from pygame.draw import rect
 
-from models.managers import PlayerManager, EnemyManager, BackGroundManager
+from engine.player import PlayerManager
+from engine.enemy import EnemyManager
+from engine.background import BackGroundManager
 from screens.base import Screen
 from .pause import PauseScreen
 
@@ -24,30 +26,29 @@ class GameScreen(Screen):
         self.image['trophy'] = self.get_image('trophy.png')
 
     def run(self):
-
-        if self.player.health_point == 0:
-            self.set_screen('dying')
-            # self.set_screen('dying')
-
         if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
             self.player.upgrade()
             self.background.upgrade()
 
             if self.level // 5 == 0:
                 self.set_screen('begin_first')
-            elif self.level // 5 == 1:
+            if self.level // 5 == 1:
                 self.set_screen('begin_second')
             elif self.level // 5 == 2:
                 self.set_screen('begin_third')
-            else:
-                # TODO: stage3까지 완성되면 clear effect로 변경
-                self.set_screen('dying')
+
+        self.play()
+
+        if self.player.health_point == 0:
+            self.set_screen('dying')
+
+        if self.level > 15:
+            self.set_screen('ending_clear')
 
         if len(self.enemies.enemy) == 0:
-            # if self.player.dying() or self.level == 0:
-            self.enemies.upgrade()
             self.level += 1
-        self.play()
+            if self.level < 16:
+                self.enemies.upgrade()
 
     def play(self):
         self.draw()
@@ -78,6 +79,12 @@ class GameScreen(Screen):
         self.blit(level, (640 // 2 - level.get_width() // 2, 10))
         score = self.small_font.render(f'{self.player.score}', 1, (255, 0, 0))
         self.blit(score, (580, 10))
+        for element in self.enemies.enemy.sprites():
+            if not element.is_boss:
+                break
+            rect(self, (255, 255, 255), [self.get_width() // 2 - 75, 40, 150, 20], 2)
+            rect(self, (255, 0, 0),
+                 [self.get_width() // 2 - 75, 40, int(151 * (element.health_point / element.HEALTH_POINT)), 21])
 
     def update(self):
         self.background.update()
