@@ -22,16 +22,14 @@ HELP_CONTEXT = [
 ]
 
 
-
-
 SETTING_CONTEXT = [
     {
         'name': 'SPEED UP',
-        'key': '<'
+        'key': '['
     },
     {
         'name': 'SPEED DOWN',
-        'key': '>'
+        'key': ']'
     },
     {
         'name': 'MUTE AUDIO',
@@ -50,7 +48,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'score'
+        'action': 'score_board'
     },
     {
         'text': 'SUMMARY',

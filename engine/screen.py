@@ -1,4 +1,5 @@
 # from screens.games.explain import ExplainScreen
+from screens.ending.score_board import ScoreBoardScreen
 from screens.ending.score import ScoreScreen
 from screens.games.pause import PauseScreen
 from screens.ending.ending import ClearScreen
@@ -16,13 +17,14 @@ SCREEN = {
     'help': HelpScreen,
     'setting': SettingScreen,
     'summary': SummaryScreen,
-    'score': ScoreScreen,
+    'score_board': ScoreBoardScreen,
     'pause': PauseScreen,
     'ending_clear': ClearScreen,
     'begin_first': BeginFirstScreen,
     'begin_second': BeginSecondScreen,
     'begin_third': BeginThirdScreen,
-    'dying': DyingScreen
+    'dying': DyingScreen,
+    'score': ScoreScreen
 }
 
 
@@ -47,7 +49,10 @@ class ScreenManager:
 
     def set_screen(self, action):
         self.before_screen = self.screen
-        self.screen = SCREEN.get(action)((WIDTH, HEIGHT), self.set_screen, self.return_screen)
+        if action == 'pause':
+            self.screen = PauseScreen((WIDTH, HEIGHT), self.set_screen, self.return_screen, self.before_screen.player.score)
+        else:
+            self.screen = SCREEN.get(action)((WIDTH, HEIGHT), self.set_screen, self.return_screen)
 
     def return_screen(self):
         self.screen = self.before_screen

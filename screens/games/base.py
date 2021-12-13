@@ -16,7 +16,6 @@ class GameScreen(Screen):
         self.image = dict()
         self.load_image()
         self.is_pause = False
-        self.pause = PauseScreen((size[0] // 2, size[1] // 2), set_screen, return_screen)
         self.player = PlayerManager()
         self.enemies = EnemyManager()
         self.background = BackGroundManager()
@@ -52,12 +51,9 @@ class GameScreen(Screen):
 
     def play(self):
         self.draw()
-        if self.is_pause:
-            self.pause.draw()
-        else:
-            self.move()
-            self.collide()
-            self.update()
+        self.move()
+        self.collide()
+        self.update()
 
     def collide(self):
         self.player.collide(self.enemies.enemy)
@@ -102,6 +98,3 @@ class GameScreen(Screen):
 
             if key[K_ESCAPE] or key[K_p]:
                 self.set_screen('pause')
-
-        if self.is_pause:
-            self.pause.get_event(event)

@@ -19,8 +19,8 @@ class GameTick(Singleton):
 
     def down(self):
         self.tick -= 5
-        if self.tick < 30:
-            self.tick = 30
+        if self.tick < 1:
+            self.tick = 1
         self.instance.tick = self.tick
 
     def get(self):
