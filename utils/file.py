@@ -31,9 +31,3 @@ class File:
             for idx, score in enumerate(new_scores):
                 if idx < 5:
                     score_file.write(f"{score[0]}:{score[1]}\n")
-
-
-if __name__ == '__main__':
-    file = File()
-    print(file.load_data())
-    file.save_data({'player': 'NHJ', 'score': 5000})
