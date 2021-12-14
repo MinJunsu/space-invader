@@ -51,6 +51,8 @@ class ScreenManager:
         self.before_screen = self.screen
         if action == 'pause':
             self.screen = PauseScreen((WIDTH, HEIGHT), self.set_screen, self.return_screen, self.before_screen.player.score)
+        elif action == 'score':
+            self.screen = ScoreScreen((WIDTH, HEIGHT), self.set_screen, self.return_screen, self.before_screen.player.score)
         else:
             self.screen = SCREEN.get(action)((WIDTH, HEIGHT), self.set_screen, self.return_screen)
 

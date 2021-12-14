@@ -6,7 +6,9 @@ from engine.player import PlayerManager
 from engine.enemy import EnemyManager
 from engine.background import BackGroundManager
 from screens.base import Screen
+from utils.file import File
 from .pause import PauseScreen
+from ..ending.score import ScoreScreen
 
 
 class GameScreen(Screen):
@@ -42,7 +44,12 @@ class GameScreen(Screen):
             self.set_screen('dying')
 
         if self.level > 15:
-            self.set_screen('ending_clear')
+            scores = File.load_data()
+            scores['TEMP'] = self.player.score
+            if self.player.score in sorted(scores.values(), reverse=True)[:5]:
+                self.set_screen('score')
+            else:
+                self.set_screen('ending_clear')
 
         if len(self.enemies.enemy) == 0:
             self.level += 1
