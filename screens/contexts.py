@@ -48,7 +48,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'score_board'
+        'action': 'score'
     },
     {
         'text': 'SUMMARY',
@@ -158,7 +158,7 @@ PAUSE_CONTEXT = [
         'text': ' Press [ESC] to return Game!!'
     },
     {
-        'text': '   Your Score is'
+        'text': 'Your Score is'
     }
 ]
 
