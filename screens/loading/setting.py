@@ -1,4 +1,4 @@
-from pygame.constants import KEYDOWN, K_LESS, K_GREATER, K_LEFTBRACKET, K_RIGHTBRACKET, K_m, K_BACKSPACE, K_PLUS, K_MINUS, K_UP, K_DOWN, K_z, K_x
+from pygame.constants import KEYDOWN, K_LESS, K_GREATER, K_LEFTBRACKET, K_RIGHTBRACKET, K_m, K_BACKSPACE, K_z, K_x, K_MINUS, K_UP, K_DOWN, K_z, K_x
 from pygame.key import get_pressed
 
 from screens import Screen, SETTING_CONTEXT
@@ -35,8 +35,8 @@ class SettingScreen(Screen):
             else:
                 name = self.small_font.render(element['name'], 1, self.UN_CHOICE_COLOR)
 
-            name_position = (70, 200 + idx * 40)
-            key_position = (430, 200 + idx * 40)
+            name_position = (70, 180 + idx * 40)
+            key_position = (430, 180 + idx * 40)
 
             key = self.small_font.render(element['key'], 1, (0, 255, 0))
 
@@ -60,22 +60,19 @@ class SettingScreen(Screen):
             if key[K_DOWN]:
                 self.index = self.index + 1 if self.index < len(self.CONTEXT) - 1 else 0
 
-            # TODO: Change Game Ticks
             if key[K_LEFTBRACKET]:
                 self.tick.down()
 
             elif key[K_RIGHTBRACKET]:
                 self.tick.up()
 
-            # TODO: Mute Audio
             elif key[K_m]:
                 self.sound_manager.mute()
 
-            # TODO: Change Audio Volume
-            elif key[K_PLUS]:
+            elif key[K_x]:
                 self.sound_manager.volume_up()
 
-            elif key[K_MINUS]:
+            elif key[K_z]:
                 self.sound_manager.volume_down()
 
             elif key[K_BACKSPACE]:

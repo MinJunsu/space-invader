@@ -32,5 +32,6 @@ class DyingScreen(TextBaseScreen):
             key = get_pressed()
 
             if key[K_SPACE]:
+                self.sound.stop()
                 self.set_screen('main')
 

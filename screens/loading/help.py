@@ -12,7 +12,7 @@ class HelpScreen(Screen):
 
     def draw(self):
         # Draw Title
-        title = self.big_font.render('HELPS️', 1, (0, 0, 255))
+        title = self.big_font.render('HELPS', 1, (0, 0, 255))
         self.blit(title, (640 // 2 - title.get_width() // 2, 100))
 
         # Draw Return Home
