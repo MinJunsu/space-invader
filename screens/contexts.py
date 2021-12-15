@@ -10,14 +10,6 @@ HELP_CONTEXT = [
     {
         'name': 'MOVE RIGHT',
         'key': 'RIGHT'
-    },
-    {
-        'name': 'MOVE DOWN',
-        'key': 'DOWN'
-    },
-    {
-        'name': 'MOVE UP',
-        'key': 'UP'
     }
 ]
 
@@ -36,8 +28,12 @@ SETTING_CONTEXT = [
         'key': 'M'
     },
     {
-        'name': 'VOLUME UP/DOWN',
-        'key': '+/-'
+        'name': 'VOLUME UP',
+        'key': 'x'
+    },
+    {
+        'name': 'VOLUME DOWN',
+        'key': 'z'
     }
 ]
 
@@ -48,7 +44,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'score'
+        'action': 'score_board'
     },
     {
         'text': 'SUMMARY',

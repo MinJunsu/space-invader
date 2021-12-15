@@ -1,4 +1,4 @@
-from pygame.constants import KEYDOWN, K_s, K_ESCAPE
+from pygame.constants import KEYDOWN, K_h, K_ESCAPE
 from pygame.key import get_pressed
 
 from engine.sound import SoundManager
@@ -13,8 +13,6 @@ class PauseScreen(Screen):
         super(PauseScreen, self).__init__(size, set_screen, return_screen)
         self.sound_manager = SoundManager()
         self.tick = game_tick()
-        self.speed_val = self.sound_manager.get_volume()
-        self.volume_val = self.tick.get()
         self.score = str(score)
 
     def draw(self):
@@ -33,13 +31,13 @@ class PauseScreen(Screen):
         speed_option = self.small_font.render('Speed : ', 1, (255, 255, 255))
         self.blit(speed_option, (640 - speed_option.get_width() - 60, 55))
 
-        speed_val = self.small_font.render(str(self.speed_val), 1, (0, 255, 0))
+        speed_val = self.small_font.render(str(int(round(self.sound_manager.get_volume(), 2) * 100)), 1, (0, 255, 0))
         self.blit(speed_val, (640 - speed_val.get_width() - 30, 55))
 
         volume_option = self.small_font.render('volume : ', 1, (255, 255, 255))
         self.blit(volume_option, (640 - volume_option.get_width() - 60, 75))
 
-        volume_val = self.small_font.render(str(self.volume_val), 1, (0, 255, 0))
+        volume_val = self.small_font.render(str(self.tick.get()), 1, (0, 255, 0))
         self.blit(volume_val, (640 - volume_val.get_width() - 30, 75))
 
         # Draw Score
@@ -58,5 +56,5 @@ class PauseScreen(Screen):
             if key[K_ESCAPE]:
                 self.return_screen()
 
-            if key[K_s]:
+            if key[K_h]:
                 self.set_screen('main')

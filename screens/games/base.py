@@ -7,8 +7,6 @@ from engine.enemy import EnemyManager
 from engine.background import BackGroundManager
 from screens.base import Screen
 from utils.file import File
-from .pause import PauseScreen
-from ..ending.score import ScoreScreen
 
 
 class GameScreen(Screen):
@@ -39,6 +37,7 @@ class GameScreen(Screen):
                 self.set_screen('begin_third')
 
         self.play()
+        self.is_enemy_out()
 
         if self.player.health_point == 0:
             self.set_screen('dying')
@@ -55,6 +54,12 @@ class GameScreen(Screen):
             self.level += 1
             if self.level < 16:
                 self.enemies.upgrade()
+
+    def is_enemy_out(self):
+        for enemy in self.enemies.enemy:
+            if enemy.rect.y + enemy.image.get_height() > 480:
+                self.player.health_point -= 1
+                enemy.kill()
 
     def play(self):
         self.draw()
