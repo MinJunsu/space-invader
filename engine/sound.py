@@ -50,6 +50,9 @@ class SoundManager(Singleton):
             self.volume = 0
         self.set_volume()
 
+    def get_volume(self):
+        return self.volume
+
     def set_volume(self):
         for sound in self.sounds.keys():
             self.sounds.get(sound).set_volume(self.volume)

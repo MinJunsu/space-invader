@@ -2,7 +2,9 @@ from unittest import TestCase
 
 from pygame import mixer
 
-from models.managers import PlayerManager, EnemyManager, BackGroundManager
+from engine.player import PlayerManager
+from engine.enemy import EnemyManager
+from engine.background import BackGroundManager
 from pygame.sprite import Group, GroupSingle
 from models.player.players import PlanePlayer, SpaceShipPlayer
 

@@ -1,10 +1,10 @@
 from pygame.constants import KEYDOWN, K_SPACE
 from pygame.key import get_pressed
+from pygame.sprite import GroupSingle
 
 from screens import Screen, ENDING_CONTEXT
-
-from pygame.sprite import GroupSingle
 from models import BackGround
+from engine.sound import SoundManager
 
 
 class ClearScreen(Screen):
@@ -13,7 +13,8 @@ class ClearScreen(Screen):
     def __init__(self, size, set_screen, return_screen):
         super(ClearScreen, self).__init__(size, set_screen, return_screen)
         self.background = GroupSingle()
-        self.sound = self.set_sound('clear.mp3')
+        self.sound_manager = SoundManager()
+        self.sound = self.sound_manager.set_sound('clear.mp3')
         self.sound.play()
         self.frame = 0
 
@@ -38,4 +39,5 @@ class ClearScreen(Screen):
             key = get_pressed()
 
             if key[K_SPACE]:
+                self.sound.stop()
                 self.set_screen('main')

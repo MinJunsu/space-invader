@@ -10,36 +10,30 @@ HELP_CONTEXT = [
     {
         'name': 'MOVE RIGHT',
         'key': 'RIGHT'
-    },
-    {
-        'name': 'MOVE DOWN',
-        'key': 'DOWN'
-    },
-    {
-        'name': 'MOVE UP',
-        'key': 'UP'
     }
 ]
-
-
 
 
 SETTING_CONTEXT = [
     {
         'name': 'SPEED UP',
-        'key': '<'
+        'key': '['
     },
     {
         'name': 'SPEED DOWN',
-        'key': '>'
+        'key': ']'
     },
     {
         'name': 'MUTE AUDIO',
         'key': 'M'
     },
     {
-        'name': 'VOLUME UP/DOWN',
-        'key': '+/-'
+        'name': 'VOLUME UP',
+        'key': 'x'
+    },
+    {
+        'name': 'VOLUME DOWN',
+        'key': 'z'
     }
 ]
 
@@ -50,7 +44,7 @@ LOADING_CONTEXT = [
     },
     {
         'text': 'SCORES',
-        'action': 'score'
+        'action': 'score_board'
     },
     {
         'text': 'SUMMARY',
@@ -160,7 +154,7 @@ PAUSE_CONTEXT = [
         'text': ' Press [ESC] to return Game!!'
     },
     {
-        'text': '   Your Score is'
+        'text': 'Your Score is'
     }
 ]
 

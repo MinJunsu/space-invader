@@ -6,6 +6,7 @@ from pygame.font import Font
 from pygame.mixer import Sound
 from pygame.sprite import GroupSingle
 
+from engine.sound import SoundManager
 from models import BackGround
 
 
@@ -57,7 +58,8 @@ class TextBaseScreen(Screen):
         self.middle_font = self.get_font('elice.ttf', 20)
         self.font = self.get_font('elice.ttf', 15)
         self.context = self.CONTEXT.get(category)
-        self.sound = self.set_sound('explain.wav')
+        self.sound_manager = SoundManager()
+        self.sound = self.sound_manager.set_sound('explain.wav')
         self.sound.play(-1)
         self.background = GroupSingle()
         self.category = category

@@ -6,7 +6,7 @@ from engine.player import PlayerManager
 from engine.enemy import EnemyManager
 from engine.background import BackGroundManager
 from screens.base import Screen
-from .pause import PauseScreen
+from utils.file import File
 
 
 class GameScreen(Screen):
@@ -16,7 +16,6 @@ class GameScreen(Screen):
         self.image = dict()
         self.load_image()
         self.is_pause = False
-        self.pause = PauseScreen((size[0] // 2, size[1] // 2), set_screen, return_screen)
         self.player = PlayerManager()
         self.enemies = EnemyManager()
         self.background = BackGroundManager()
@@ -26,38 +25,52 @@ class GameScreen(Screen):
         self.image['trophy'] = self.get_image('trophy.png')
 
     def run(self):
-        if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
-            self.player.upgrade()
-            self.background.upgrade()
 
-            if self.level // 5 == 0:
-                self.set_screen('begin_first')
-            if self.level // 5 == 1:
-                self.set_screen('begin_second')
-            elif self.level // 5 == 2:
-                self.set_screen('begin_third')
+        if len(self.enemies.enemy) == 0:
+            flag = True
+            if len(self.enemies.collision) > 0:
+                flag = False
+            if flag:
+                self.level += 1
+                if self.level < 16:
+                    self.enemies.upgrade()
+
+                if self.level % 5 == 1:
+                    self.player.upgrade()
+                    self.background.upgrade()
+
+                    if self.level // 5 == 0:
+                        self.set_screen('begin_first')
+                    elif self.level // 5 == 1:
+                        self.set_screen('begin_second')
+                    elif self.level // 5 == 2:
+                        self.set_screen('begin_third')
 
         self.play()
+        self.is_enemy_out()
 
         if self.player.health_point == 0:
             self.set_screen('dying')
 
         if self.level > 15:
-            self.set_screen('ending_clear')
+            scores = File.load_data()
+            scores['TEMP'] = self.player.score
+            if self.player.score in sorted(scores.values(), reverse=True)[:5]:
+                self.set_screen('score')
+            else:
+                self.set_screen('ending_clear')
 
-        if len(self.enemies.enemy) == 0:
-            self.level += 1
-            if self.level < 16:
-                self.enemies.upgrade()
+    def is_enemy_out(self):
+        for enemy in self.enemies.enemy:
+            if enemy.rect.y + enemy.image.get_height() > 480:
+                self.player.health_point -= 1
+                enemy.kill()
 
     def play(self):
         self.draw()
-        if self.is_pause:
-            self.pause.draw()
-        else:
-            self.move()
-            self.collide()
-            self.update()
+        self.move()
+        self.collide()
+        self.update()
 
     def collide(self):
         self.player.collide(self.enemies.enemy)
@@ -102,6 +115,3 @@ class GameScreen(Screen):
 
             if key[K_ESCAPE] or key[K_p]:
                 self.set_screen('pause')
-
-        if self.is_pause:
-            self.pause.get_event(event)

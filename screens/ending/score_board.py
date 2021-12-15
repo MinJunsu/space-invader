@@ -1,19 +1,19 @@
 from pygame.constants import KEYDOWN, K_BACKSPACE
 from pygame.key import get_pressed
 
-from screens import Screen, SUMMARY_CONTEXT
+from screens import Screen, HELP_CONTEXT
+from utils.file import File
 
 
-class SummaryScreen(Screen):
-    CONTEXT = SUMMARY_CONTEXT
+class ScoreBoardScreen(Screen):
+    CONTEXT = HELP_CONTEXT
 
     def __init__(self, size, set_screen, return_screen):
         super().__init__(size, set_screen, return_screen)
-        self.middle_font = self.get_font('elice.ttf', 20)
+        self.scores = File.load_data().items()
 
     def draw(self):
-        # Draw Title
-        title = self.big_font.render('Summary', 1, (0, 0, 255))
+        title = self.big_font.render('Score', 1, (0, 0, 255))
         self.blit(title, (640 // 2 - title.get_width() // 2, 100))
 
         # Draw Return Home
@@ -21,9 +21,9 @@ class SummaryScreen(Screen):
         self.blit(home, (10, 10))
 
         # Draw Summary
-        for idx, element in enumerate(self.CONTEXT):
-            text = self.middle_font.render(element['text'], 1, (255, 255, 255))
-            text_position = ((640 - text.get_width())//2, 180 + idx * 60)
+        for idx, element in enumerate(self.scores):
+            text = self.middle_font.render(f"{idx + 1}.  {element[0]} - {element[1]}", 1, (255, 255, 255))
+            text_position = ((640 - text.get_width())//2, 180 + idx * 40)
             self.blit(text, text_position)
 
     def get_event(self, event):
