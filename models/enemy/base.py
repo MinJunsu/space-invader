@@ -47,7 +47,7 @@ class Enemy(Entity):
 
     @classmethod
     def create(cls, func):
-        func(*[cls(randint(140, 500), randint(0, 100)) for idx, _ in enumerate(range(cls.DEFAULT_COUNT))])
+        func(*[cls(randint(0, 500), randint(0, 150)) for idx, _ in enumerate(range(cls.DEFAULT_COUNT))])
 
 
 class EnemyBullet(Bullet):
