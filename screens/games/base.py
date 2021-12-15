@@ -25,16 +25,26 @@ class GameScreen(Screen):
         self.image['trophy'] = self.get_image('trophy.png')
 
     def run(self):
-        if len(self.enemies.enemy) == 0 and self.enemies.level % 5 == 0:
-            self.player.upgrade()
-            self.background.upgrade()
 
-            if self.level // 5 == 0:
-                self.set_screen('begin_first')
-            if self.level // 5 == 1:
-                self.set_screen('begin_second')
-            elif self.level // 5 == 2:
-                self.set_screen('begin_third')
+        if len(self.enemies.enemy) == 0:
+            flag = True
+            if len(self.enemies.collision) > 0:
+                flag = False
+            if flag:
+                self.level += 1
+                if self.level < 16:
+                    self.enemies.upgrade()
+
+                if self.level % 5 == 1:
+                    self.player.upgrade()
+                    self.background.upgrade()
+
+                    if self.level // 5 == 0:
+                        self.set_screen('begin_first')
+                    elif self.level // 5 == 1:
+                        self.set_screen('begin_second')
+                    elif self.level // 5 == 2:
+                        self.set_screen('begin_third')
 
         self.play()
         self.is_enemy_out()
@@ -49,11 +59,6 @@ class GameScreen(Screen):
                 self.set_screen('score')
             else:
                 self.set_screen('ending_clear')
-
-        if len(self.enemies.enemy) == 0:
-            self.level += 1
-            if self.level < 16:
-                self.enemies.upgrade()
 
     def is_enemy_out(self):
         for enemy in self.enemies.enemy:

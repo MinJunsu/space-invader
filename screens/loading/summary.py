@@ -9,9 +9,7 @@ class SummaryScreen(Screen):
 
     def __init__(self, size, set_screen, return_screen):
         super().__init__(size, set_screen, return_screen)
-        self.big_font = self.get_font('elice.ttf', 30)
-        self.middle_font = self.get_font('elice.ttf', 30)
-        self.small_font = self.get_font('elice.ttf', 20)
+        self.middle_font = self.get_font('elice.ttf', 20)
 
     def draw(self):
         # Draw Title
